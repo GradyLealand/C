@@ -16,8 +16,8 @@ public:
     ticTacToe();
     void drawBoard();
     void playGame();
-    bool checkFull();
-    bool checkWin();
+    bool checkFull(char myArray[]);
+    bool checkWin(char player);
 
 };
 

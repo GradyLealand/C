@@ -30,3 +30,20 @@ void ticTacToe::playGame() {
     }
     while(!boardFull || !gameWon);
 }
+
+bool ticTacToe::checkFull(char myArray[]) {
+    for(int i = 0; i < sizeof(myArray); ++i){
+
+    }
+
+}
+
+bool ticTacToe::checkWin(char player){
+    //loop through win conditions and check to see if player passed to method won
+    if(board[0,1,2] == player){
+
+    }
+
+}
+
+
