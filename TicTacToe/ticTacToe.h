@@ -8,7 +8,7 @@
 
 class ticTacToe {
 private:
-    char board[9];
+    char board[3][3];
     bool boardFull;
     bool gameWon;
 
