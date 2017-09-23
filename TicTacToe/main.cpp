@@ -4,19 +4,15 @@
 
 int main() {
     //Declare and build game
-    ticTacToe Game;
-    Game.drawBoard();
+    ticTacToe game;
+    game.drawBoard();
+    //set end conditions to flase
+    game.setBoardFull(false);
+    game.setGameWon(false);
 
-
-    //check to see if the board is full
-
-        //player takes a turn
-            //check to see if player wins
-
-        //Ai takes a turn
-            //check to see if ai wins
-
-        //check for tie
+    //start the game
+    game.playGame();
 
     //display win, los or tie text and offer to start a new game
+
 }

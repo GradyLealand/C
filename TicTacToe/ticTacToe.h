@@ -16,8 +16,14 @@ public:
     ticTacToe();
     void drawBoard();
     void playGame();
-    bool checkFull(char myArray[]);
+    void playerMove();
+    bool checkFull();
     bool checkWin(char player);
+    bool checkSquare(int move, char player);
+    bool isBoardFull() const;
+    void setBoardFull(bool boardFull);
+    bool isGameWon() const;
+    void setGameWon(bool gameWon);
 
 };
 
