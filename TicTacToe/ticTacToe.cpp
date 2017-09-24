@@ -35,15 +35,16 @@ void ticTacToe::drawBoard(){
 
 }//end drawBoard
 
+//run the game
 void ticTacToe::playGame() {
     do{
         //players turn
         playerMove();
-        checkFull();
-        checkWin(humanPlayer);
-        if(boardFull == true || gameWon == true){
-            break;
-        }
+        boardFull = checkFull();
+        gameWon = checkWin();
+//        if(boardFull || gameWon){
+//            break;
+//        }
         //ai's turn
         drawBoard();
     }
@@ -79,21 +80,33 @@ bool ticTacToe::checkSquare(int move, char player){
 }//end checkSquare
 
 bool ticTacToe::checkFull() {
-    for(int i = 0; i < 3; ++i){
-        for(int j = 0; j < 3; ++j){
-            if( board[i][j] != 'X' && board[i][j] != 'O'){
-                return boardFull = false;
+    for (auto &i : board) {
+        for (char j : i) {
+            if(j != 'X' && j != 'O'){
+                return false;
             }
         }
     }//end for loop
-    return boardFull = true;
+    return true;
 }//end checkFull
 
-bool ticTacToe::checkWin(char player){
-    //loop through win conditions and check to see if player passed to method won
-//    if(board[0,1,2] == player){
-//
-//    }
+bool ticTacToe::checkWin(){
+    //loop through straight line win conditions and check to see if a player has won
+    for(int i = 0; i < 3; ++i){
+        if(board[i][0] == board[i][1] && board[i][1] == board[i][2]){
+            return true;
+        }else if(board[0][i] == board[1][i] && board[1][i] == board[2][i]){
+            return true;
+        }
+    }//end loop
+    //check both diagonal win conditions
+    if(board[0][0] == board[1][1] && board[1][1] == board[2][2]){
+        return true;
+    }else if(board[0][2] == board[1][1] && board[1][1] == board[0][2]){
+        return true;
+    }
+    //if no one won return false
+    return false;
 }//end checkWin
 
 bool ticTacToe::isBoardFull() const {

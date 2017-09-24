@@ -21,7 +21,7 @@ public:
     void playGame();
     void playerMove();
     bool checkFull();
-    bool checkWin(char player);
+    bool checkWin();
     bool checkSquare(int move, char player);
     bool isBoardFull() const;
     void setBoardFull(bool boardFull);
