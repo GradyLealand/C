@@ -1,4 +1,9 @@
 //draw board code taken from cplusepluse.com/forum/beginner/5260
+/*
+ * This class performs all game functions including the players turn and
+ * check win conditions, whether or not the board is full and if the square is
+ * free to be played on.
+ */
 
 #include "ticTacToe.h"
 #include <iostream>
@@ -32,7 +37,14 @@ void ticTacToe::drawBoard(){
 
 void ticTacToe::playGame() {
     do{
+        //players turn
         playerMove();
+        checkFull();
+        checkWin(humanPlayer);
+        if(boardFull == true || gameWon == true){
+            break;
+        }
+        //ai's turn
         drawBoard();
     }
     while(!boardFull || !gameWon);
@@ -46,30 +58,35 @@ void ticTacToe::playerMove() {
 }//end payerMove
 
 bool ticTacToe::checkSquare(int move, char player){
-    if(move < 4){
-        if(board[0][move - 1] != 'X' && board[0][move - 1] != 'O'){
-            board[0][move - 1] = player;
-        }else{}
-    }else if(move < 6){
-        if(board[1][move - 4] != 'X' && board[1][move - 4] != 'O'){
-            board[1][move - 4] = player;
+    //set false by default
+    playable = false;
+    do{
+        if(move < 4){
+            if(board[0][move - 1] != 'X' && board[0][move - 1] != 'O'){
+                board[0][move - 1] = player;
+                playable = true;
+            }else{ std::cout << "space already taken. Please Pick another" << std::endl;}
+        }else if(move < 6){
+            if(board[1][move - 4] != 'X' && board[1][move - 4] != 'O'){
+                board[1][move - 4] = player;
+            }else{ std::cout << "space already taken. Please Pick another" << std::endl;}
+        }else{
+            if(board[2][move - 7] != 'X' && board[2][move - 7] != 'O'){
+                board[2][move - 7] = player;
+            }else{ std::cout << "space already taken. Please Pick another" << std::endl;}
         }
-    }else{
-        if(board[2][move - 7] != 'X' && board[2][move - 7] != 'O'){
-            board[2][move - 7] = player;
-        }
-    }
+    }while(playable = false);
 }//end checkSquare
 
 bool ticTacToe::checkFull() {
     for(int i = 0; i < 3; ++i){
         for(int j = 0; j < 3; ++j){
-            if( board[i][j] == 'X' || board[i][j] == 'O'){
-                return boardFull = true;
+            if( board[i][j] != 'X' && board[i][j] != 'O'){
+                return boardFull = false;
             }
         }
     }//end for loop
-    return boardFull = false;
+    return boardFull = true;
 }//end checkFull
 
 bool ticTacToe::checkWin(char player){

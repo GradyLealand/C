@@ -11,6 +11,9 @@ private:
     char board[3][3];
     bool boardFull;
     bool gameWon;
+    bool playable;
+    char humanPlayer;
+    char cpuPlayer;
 
 public:
     ticTacToe();

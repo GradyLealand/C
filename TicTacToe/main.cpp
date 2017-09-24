@@ -1,7 +1,15 @@
+/*
+ * Project: ticTacToe
+ * Author: Grady Williams
+ * Date: september 28, 2017
+ */
 
 #include <iostream>
 #include "ticTacToe.h"
-
+/*
+ * This class calls build the game and then starts it from the class
+ * ticTacToe.
+ */
 int main() {
     //Declare and build game
     ticTacToe game;
