@@ -42,18 +42,23 @@ void ticTacToe::playGame() {
         playerMove();
         boardFull = checkFull();
         gameWon = checkWin();
-//        if(boardFull || gameWon){
-//            break;
-//        }
-        //ai's turn
+            if(gameWon){
+                std::cout << "Player has won" << std::endl;
+                break;
+            }else if(boardFull){
+                std::cout << "The game has ended in a tie" << std::endl;
+                break;
+            }
+        //ai's turn1
         drawBoard();
     }
-    while(!boardFull || !gameWon);
+    while(!boardFull && !gameWon);
+    drawBoard();
 }//end playGame()
 
 void ticTacToe::playerMove() {
     int x;
-    std::cout << "Which squid do you want to play on?" << std::endl;
+    std::cout << "Which square do you want to play on?" << std::endl;
     std::cin >> x;
     checkSquare(x, 'X');
 }//end payerMove
@@ -93,6 +98,9 @@ bool ticTacToe::checkFull() {
 bool ticTacToe::checkWin(){
     //loop through straight line win conditions and check to see if a player has won
     for(int i = 0; i < 3; ++i){
+        char x = board[i][0];
+        char y = board[i][1];
+        char z = board[i][2];
         if(board[i][0] == board[i][1] && board[i][1] == board[i][2]){
             return true;
         }else if(board[0][i] == board[1][i] && board[1][i] == board[2][i]){
