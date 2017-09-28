@@ -39,6 +39,11 @@ private:
 
 public:
     int randomMove(int move, bool centerPlay);
+    void setCenterFirst(bool centerFirst);
+    bool isCenterFirst() const;
+    void setPlayedOnce(bool playedOnce);
+    bool isPlayedOnce() const;
+
 };
 
 
