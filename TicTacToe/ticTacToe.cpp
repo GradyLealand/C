@@ -61,9 +61,11 @@ void ticTacToe::playGame() {
             playerMove();
             gameWon = checkWin();
             if(gameWon){
+                drawBoard();
                 std::cout << "\nPlayer has won" << std::endl;
                 break;
             }else if(boardFull) {
+                drawBoard();
                 std::cout << "\nThe game has ended in a tie" << std::endl;
                 break;
             }
@@ -75,6 +77,7 @@ void ticTacToe::playGame() {
             boardFull = checkFull();
             gameWon = checkWin();
             if(gameWon){
+                drawBoard();
                 std::cout << "\nAi has won" << std::endl;
                 break;
             }
