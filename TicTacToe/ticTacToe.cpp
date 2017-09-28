@@ -8,6 +8,9 @@
 #include "ticTacToe.h"
 #include <iostream>
 
+//instance the ai to be used
+ai comp;
+
 //build game
 ticTacToe::ticTacToe(){
     //declare players
@@ -49,7 +52,10 @@ void ticTacToe::playGame() {
                 std::cout << "The game has ended in a tie" << std::endl;
                 break;
             }
+        drawBoard();
         //ai's turn1
+        int move = comp.randomMove();
+        checkSquare(move, 'O');
         drawBoard();
     }
     while(!boardFull && !gameWon);
@@ -71,15 +77,38 @@ bool ticTacToe::checkSquare(int move, char player){
             if(board[0][move - 1] != 'X' && board[0][move - 1] != 'O'){
                 board[0][move - 1] = player;
                 playable = true;
-            }else{ std::cout << "space already taken. Please Pick another" << std::endl;}
+            }else{
+                if(player == 'X'){// if player ask for another number
+                    std::cout << "space already taken. Please Pick another" << std::endl;
+                    std::cin >> move;
+                }else if(player == 'O'){//if ai make it guess another number
+                    move = comp.randomMove();
+                }
+            }
         }else if(move < 6){
             if(board[1][move - 4] != 'X' && board[1][move - 4] != 'O'){
                 board[1][move - 4] = player;
-            }else{ std::cout << "space already taken. Please Pick another" << std::endl;}
+                playable = true;
+            }else{
+                if(player == 'X'){
+                    std::cout << "space already taken. Please Pick another" << std::endl;
+                    std::cin >> move;
+                }else if(player == 'O'){
+                    move = comp.randomMove();
+                }
+            }
         }else{
             if(board[2][move - 7] != 'X' && board[2][move - 7] != 'O'){
                 board[2][move - 7] = player;
-            }else{ std::cout << "space already taken. Please Pick another" << std::endl;}
+                playable = true;
+            }else{
+                if(player == 'X'){
+                    std::cout << "space already taken. Please Pick another" << std::endl;
+                    std::cin >> move;
+                }else if(player == 'O'){
+                    move = comp.randomMove();
+                }
+            }
         }
     }while(playable = false);
 }//end checkSquare

@@ -30,5 +30,12 @@ public:
 
 };
 
+class ai{
+private:
+
+public:
+    int randomMove();
+};
+
 
 #endif //TICTACTOE_TICTACTOE_H
