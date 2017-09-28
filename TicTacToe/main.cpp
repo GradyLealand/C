@@ -11,16 +11,13 @@
  * ticTacToe.
  */
 int main() {
-    //Declare and build game
+    //build and declare game
     ticTacToe game;
-    game.drawBoard();
-    //set end conditions to flase
-    game.setBoardFull(false);
-    game.setGameWon(false);
+    std::cout << "Welcome to TicTacToe.  You will Be playing agians TacAi." << std::endl;
+    std::cout << "TacAi Will be 'O'  and you will be  'X' " << std::endl;
 
-    //start the game
     game.playGame();
 
-    //display win, los or tie text and offer to start a new game
+
 
 }

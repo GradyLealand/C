@@ -40,31 +40,42 @@ void ticTacToe::drawBoard(){
 
 //run the game
 void ticTacToe::playGame() {
-    do{
-        //players turn
-        playerMove();
+    //set booleans to false so gme will play
+    gameWon = false;
+    boardFull = false;
+    while(!boardFull && !gameWon){
+        //ai's turn1
+        std::cout << "\nTacAi made its move" << std::endl;
+        int move = comp.randomMove(1, false);
+        checkSquare(move, 'O');
         boardFull = checkFull();
         gameWon = checkWin();
-            if(gameWon){
-                std::cout << "Player has won" << std::endl;
-                break;
-            }else if(boardFull){
-                std::cout << "The game has ended in a tie" << std::endl;
-                break;
-            }
+        if(gameWon){
+            std::cout << "\nAi has won" << std::endl;
+            break;
+        }else if(boardFull) {
+            std::cout << "\nThe game has ended in a tie" << std::endl;
+            break;
+        }
+
         drawBoard();
-        //ai's turn1
-        int move = comp.randomMove();
-        checkSquare(move, 'O');
+
+        //players turn
+        playerMove();
+        gameWon = checkWin();
+        if(gameWon){
+            std::cout << "\nPlayer has won" << std::endl;
+            break;
+        }
         drawBoard();
     }
-    while(!boardFull && !gameWon);
+
     drawBoard();
 }//end playGame()
 
 void ticTacToe::playerMove() {
     int x;
-    std::cout << "Which square do you want to play on?" << std::endl;
+    std::cout << "\nWhich square do you want to play on?" << std::endl;
     std::cin >> x;
     checkSquare(x, 'X');
 }//end payerMove
@@ -72,45 +83,42 @@ void ticTacToe::playerMove() {
 bool ticTacToe::checkSquare(int move, char player){
     //set false by default
     playable = false;
-    do{
+    int aiMove = 1;
+    bool centerPlay = false;
+    while(playable == false){
         if(move < 4){
             if(board[0][move - 1] != 'X' && board[0][move - 1] != 'O'){
                 board[0][move - 1] = player;
                 playable = true;
-            }else{
-                if(player == 'X'){// if player ask for another number
-                    std::cout << "space already taken. Please Pick another" << std::endl;
-                    std::cin >> move;
-                }else if(player == 'O'){//if ai make it guess another number
-                    move = comp.randomMove();
-                }
             }
         }else if(move < 6){
             if(board[1][move - 4] != 'X' && board[1][move - 4] != 'O'){
                 board[1][move - 4] = player;
                 playable = true;
-            }else{
-                if(player == 'X'){
-                    std::cout << "space already taken. Please Pick another" << std::endl;
-                    std::cin >> move;
-                }else if(player == 'O'){
-                    move = comp.randomMove();
-                }
             }
         }else{
             if(board[2][move - 7] != 'X' && board[2][move - 7] != 'O'){
                 board[2][move - 7] = player;
                 playable = true;
-            }else{
-                if(player == 'X'){
-                    std::cout << "space already taken. Please Pick another" << std::endl;
-                    std::cin >> move;
-                }else if(player == 'O'){
-                    move = comp.randomMove();
-                }
             }
         }
-    }while(playable = false);
+        if(playable == false){
+            if(player == 'X'){
+                std::cout << "space already taken. Please Pick another" << std::endl;
+                std::cin >> move;
+            }else if(player == 'O'){
+                if(board[1][1] == 'X'){
+                    centerPlay = true;
+                    aiMove++;
+                    move =comp.randomMove(aiMove, centerPlay);
+                }else{
+                    aiMove++;
+                    move = comp.randomMove(aiMove, centerPlay);
+                }
+
+            }
+        }
+    }
 }//end checkSquare
 
 bool ticTacToe::checkFull() {
@@ -127,9 +135,6 @@ bool ticTacToe::checkFull() {
 bool ticTacToe::checkWin(){
     //loop through straight line win conditions and check to see if a player has won
     for(int i = 0; i < 3; ++i){
-        char x = board[i][0];
-        char y = board[i][1];
-        char z = board[i][2];
         if(board[i][0] == board[i][1] && board[i][1] == board[i][2]){
             return true;
         }else if(board[0][i] == board[1][i] && board[1][i] == board[2][i]){
@@ -139,7 +144,7 @@ bool ticTacToe::checkWin(){
     //check both diagonal win conditions
     if(board[0][0] == board[1][1] && board[1][1] == board[2][2]){
         return true;
-    }else if(board[0][2] == board[1][1] && board[1][1] == board[0][2]){
+    }else if(board[0][2] == board[1][1] && board[1][1] == board[2][0]){
         return true;
     }
     //if no one won return false
