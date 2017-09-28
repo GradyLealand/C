@@ -40,37 +40,80 @@ void ticTacToe::drawBoard(){
 
 //run the game
 void ticTacToe::playGame() {
-    //set booleans to false so gme will play
-    gameWon = false;
-    boardFull = false;
-    while(!boardFull && !gameWon){
-        //ai's turn1
-        std::cout << "\nTacAi made its move" << std::endl;
-        int move = comp.randomMove(1, false);
-        checkSquare(move, 'O');
-        boardFull = checkFull();
-        gameWon = checkWin();
-        if(gameWon){
-            std::cout << "\nAi has won" << std::endl;
-            break;
-        }else if(boardFull) {
-            std::cout << "\nThe game has ended in a tie" << std::endl;
+
+    char turn = 't';// jsut a char that is not 1 or 2
+    while(turn != 1 && turn != 2){
+        std::cout << "would you like to play first (1) or second (2)" << std::endl;
+        std::cin >> turn;
+        if(turn == '1' || turn == '2'){
             break;
         }
+        std::cout << "invalid option" << std::endl;
+    }
+    //player plays first
+    if (turn == '1'){
+        //set booleans to false so game will play
+        gameWon = false;
+        boardFull = false;
+        while(!boardFull && !gameWon){
+            //players turn
+            drawBoard();
+            playerMove();
+            gameWon = checkWin();
+            if(gameWon){
+                std::cout << "\nPlayer has won" << std::endl;
+                break;
+            }else if(boardFull) {
+                std::cout << "\nThe game has ended in a tie" << std::endl;
+                break;
+            }
 
-        drawBoard();
+            //ai's turn1
+            std::cout << "\nTacAi made its move" << std::endl;
+            int move = comp.randomMove(1, false);
+            checkSquare(move, 'O');
+            boardFull = checkFull();
+            gameWon = checkWin();
+            if(gameWon){
+                std::cout << "\nAi has won" << std::endl;
+                break;
+            }
+            drawBoard();
+        }
+    }
+    //ai plays first
+    else{
+        //set booleans to false so gme will play
+        gameWon = false;
+        boardFull = false;
+        while(!boardFull && !gameWon){
+            //ai's turn1
+            std::cout << "\nTacAi made its move" << std::endl;
+            int move = comp.randomMove(1, false);
+            checkSquare(move, 'O');
+            boardFull = checkFull();
+            gameWon = checkWin();
+            if(gameWon){
+                std::cout << "\nAi has won" << std::endl;
+                break;
+            }else if(boardFull) {
+                std::cout << "\nThe game has ended in a tie" << std::endl;
+                break;
+            }
 
-        //players turn
-        playerMove();
-        gameWon = checkWin();
-        if(gameWon){
-            std::cout << "\nPlayer has won" << std::endl;
-            break;
+            drawBoard();
+
+            //players turn
+            playerMove();
+            gameWon = checkWin();
+            if(gameWon){
+                std::cout << "\nPlayer has won" << std::endl;
+                break;
+            }
+            drawBoard();
         }
         drawBoard();
     }
-
-    drawBoard();
 }//end playGame()
 
 void ticTacToe::playerMove() {
