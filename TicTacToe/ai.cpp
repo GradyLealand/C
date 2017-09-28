@@ -3,8 +3,6 @@
 //
 
 #include "ticTacToe.h"
-#include <cstdlib>
-//set center first to true
 
 int ai::randomMove(int move, bool centerPlay) {
     if(!centerPlay){

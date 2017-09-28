@@ -34,8 +34,6 @@ class ai{
 private:
     bool centerFirst;
     bool playedOnce;
-    bool claimedThree;
-    bool claimedSeven;
 
 public:
     int randomMove(int move, bool centerPlay);
