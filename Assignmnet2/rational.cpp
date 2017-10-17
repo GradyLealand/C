@@ -8,26 +8,27 @@
 #include <string>
 #include <sstream>
 #include <cctype>
+#include <regex>
 
 RationalNum::RationalNum()
 {
     //Set number to one if nothing specified
-    numerator = 1;
-    denominator = 1;
+    this->numerator = 1;
+    this->denominator = 1;
 }
 
 //end RationalNum default
 
 RationalNum::RationalNum(int nume, int denom) {
     //if a fraction is entered set numerator and denominator as entered by user
-    numerator = nume;
-    denominator = denom;
+    this->numerator = nume;
+    this->denominator = denom;
 }//end RationalNum for fraction
 
 RationalNum::RationalNum(int nume) {
     //if a whole number is entered set numerator to the users number and denominator to 1
-    numerator = nume;
-    denominator = 1;
+    this->numerator = nume;
+    this->denominator = 1;
 }//end RationalNum for whole number
 
 void RationalNum::checkNumber(string) {
@@ -99,34 +100,38 @@ bool RationalNum::operator== (RationalNum &rightObj){
     return numOne == numTwo;
 }
 
-ostream& RationalNum::operator << (ostream& outs, RationalNum &num){
+ostream& operator << (ostream& outs, RationalNum &num){
     int nume;
     int denom;
     nume = num.getNumerator();
     denom = num.getDenominator();
-    outs << nume << '/' << denom ;
+    outs << nume << "/" << denom ;
 
     return outs;
 }
 
-istream RationalNum::operator >> (istream &input, RationalNum &num){
-    int TopNumber;
-    int BottomNumber;
-    char one_char;
+istream& operator >> (istream &in, RationalNum &num){
+    string str;
+    regex option1("[-]?[0-9]*\\/[-]?[1-9][0-9]*");
+    regex option2("[-]?[0-9]*");
+    stringstream stm;
+    getline(in,str);
 
-    input >> TopNumber;
-    input >> one_char;
-    if (one_char == '/')
-    {
-        input >> BottomNumber;
+    stm << str;
+
+    if (regex_match(str, option1)){
+        int grabedNum;
+        int grabedDen;
+        char slash;
+        stm >> grabedNum >> slash >> grabedDen;
+        num = RationalNum(grabedNum, grabedDen);
+    }else if(regex_match(str, option2)){
+        int grabedNum;
+        stm >> grabedNum;
+        num = RationalNum(grabedNum);
     }
-    else
-    {
-        BottomNumber = 1;
-    }
-    num.numerator = TopNumber;
-    num.denominator = BottomNumber;
-    return input;
+
+    return in;
 }
 
 

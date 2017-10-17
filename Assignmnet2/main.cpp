@@ -16,7 +16,8 @@ int main() {
     bool lessThan;
     bool equelToo;
 
-    cout << 'enter a rational number' << endl;
+    cout << "enter a rational number" << endl;
+    cin >> num1;
 
     num3 = num1 + num2;
     num4 = num1 - num2;
@@ -28,13 +29,13 @@ int main() {
 
 
 
-    cout << num1 << '+' << num2 << '=' << num3 << endl;
-    cout << num1 << '-' << num2 << '=' << num4 << endl;
-    cout << num1 << '*' << num2 << '=' << num5 << endl;
-    cout << num1 << '/' << num2 << '=' << num6 << endl;
-    cout << num1 << '>' << num2 << '=' << greaterThan << endl;
-    cout << num1 << '<' << num2 << '=' << lessThan << endl;
-    cout << num1 << '==' << num2 << '=' << equelToo << endl;
+    cout << num1 << " + " << num2 << " = " << num3 << endl;
+    cout << num1 << " - " << num2 << " = " << num4 << endl;
+    cout << num1 << " * " << num2 << " = " << num5 << endl;
+    cout << num1 << " / " << num2 << " = " << num6 << endl;
+    cout << num1 << " > " << num2 << " = " << greaterThan << endl;
+    cout << num1 << " < " << num2 << " = " << lessThan << endl;
+    cout << num1 << " == " << num2 << " = " << equelToo << endl;
 
     return 0;
 }

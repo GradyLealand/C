@@ -29,8 +29,8 @@ public:
     bool operator > (RationalNum &rightObj);
     bool operator < (RationalNum &rightObj);
     bool operator == (RationalNum &rightObj);
-    ostream& operator << (ostream& outs, RationalNum &num);
-    istream operator >> (istream &input, RationalNum &num);
+    friend ostream& operator << (ostream& outs, RationalNum &num);
+    friend istream& operator >> (istream &input, RationalNum &num);
 
     int getNumerator() const;
     void setNumerator(int numerator);
