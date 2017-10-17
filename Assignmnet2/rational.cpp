@@ -14,7 +14,9 @@ RationalNum::RationalNum()
     //Set number to one if nothing specified
     numerator = 1;
     denominator = 1;
-}//end RationalNum default
+}
+
+//end RationalNum default
 
 RationalNum::RationalNum(int nume, int denom) {
     //if a fraction is entered set numerator and denominator as entered by user
@@ -32,17 +34,103 @@ void RationalNum::checkNumber(string) {
 
 }
 
-string RationalNum::multiply(int num1, int nom1, int num2, int nom2){
-    int answerNum = (num1 * num2);
-    int answerNom = (nom1 * nom2);
-    string answeString = to_string(answerNum) + "/" + to_string(answerNom);
 
-    return answeString;
+//----Getters and setters----
+int RationalNum::getNumerator() const {
+    return numerator;
 }
 
-string RationalNum::divide(RationalNum num1, RationalNum num2) {
-
+void RationalNum::setNumerator(int numerator) {
+    RationalNum::numerator = numerator;
 }
+
+int RationalNum::getDenominator() const {
+    return denominator;
+}
+
+void RationalNum::setDenominator(int denominator) {
+    RationalNum::denominator = denominator;
+}
+
+//----overload functions----
+RationalNum RationalNum::operator + ( RationalNum &rightObj){
+    RationalNum sum;
+    sum.setNumerator((this->numerator * rightObj.getDenominator()) + (this->denominator * rightObj.getNumerator())) ;
+    sum.setDenominator(this->denominator * rightObj.getDenominator());
+    return sum;
+}
+
+RationalNum RationalNum::operator- (RationalNum &rightObj){
+    RationalNum sum;
+    sum.setNumerator((this->numerator * rightObj.denominator) - (this->denominator * rightObj.numerator)) ;
+    sum.setDenominator(this->denominator * rightObj.denominator);
+    return sum;
+}
+
+RationalNum RationalNum::operator* (RationalNum &rightObj){
+    RationalNum sum;
+    sum.setNumerator(this->numerator * rightObj.numerator);
+    sum.setDenominator(this->denominator * rightObj.denominator);
+    return sum;
+}
+
+RationalNum RationalNum::operator/ (RationalNum &rightObj){
+    RationalNum sum;
+    sum.setNumerator(this->numerator * rightObj.denominator);
+    sum.setDenominator(this->denominator * rightObj.numerator) ;
+    return sum;
+}
+
+bool RationalNum::operator> (RationalNum &rightObj){
+    float numOne = (float)this->getNumerator()/ (float)this->getDenominator();
+    float numTwo = (float)rightObj.getNumerator() / (float)rightObj.getDenominator();
+    return numOne > numTwo;
+}
+
+bool RationalNum::operator< (RationalNum &rightObj){
+    float numOne = (float)this->getNumerator()/ (float)this->getDenominator();
+    float numTwo = (float)rightObj.getNumerator() / (float)rightObj.getDenominator();
+    return numOne < numTwo;
+}
+
+bool RationalNum::operator== (RationalNum &rightObj){
+    float numOne = (float)this->getNumerator()/ (float)this->getDenominator();
+    float numTwo = (float)rightObj.getNumerator() / (float)rightObj.getDenominator();
+    return numOne == numTwo;
+}
+
+ostream& RationalNum::operator << (ostream& outs, RationalNum &num){
+    int nume;
+    int denom;
+    nume = num.getNumerator();
+    denom = num.getDenominator();
+    outs << nume << '/' << denom ;
+
+    return outs;
+}
+
+istream RationalNum::operator >> (istream &input, RationalNum &num){
+    int TopNumber;
+    int BottomNumber;
+    char one_char;
+
+    input >> TopNumber;
+    input >> one_char;
+    if (one_char == '/')
+    {
+        input >> BottomNumber;
+    }
+    else
+    {
+        BottomNumber = 1;
+    }
+    num.numerator = TopNumber;
+    num.denominator = BottomNumber;
+    return input;
+}
+
+
+
 
 
 

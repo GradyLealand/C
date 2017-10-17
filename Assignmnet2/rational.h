@@ -22,10 +22,20 @@ public:
     RationalNum(int, int);
     RationalNum(int);
     void checkNumber(string);
-    string multiply(int, int, int, int);
-    string divide(RationalNum, RationalNum);
-    string add(RationalNum, RationalNum);
-    string minus(RationalNum, RationalNum);
+    RationalNum operator + (RationalNum &rightObj);
+    RationalNum operator - (RationalNum &rightObj);
+    RationalNum operator / (RationalNum &rightObj);
+    RationalNum operator * (RationalNum &rightObj);
+    bool operator > (RationalNum &rightObj);
+    bool operator < (RationalNum &rightObj);
+    bool operator == (RationalNum &rightObj);
+    ostream& operator << (ostream& outs, RationalNum &num);
+    istream operator >> (istream &input, RationalNum &num);
+
+    int getNumerator() const;
+    void setNumerator(int numerator);
+    int getDenominator() const;
+    void setDenominator(int denominator);
 
 };
 
