@@ -5,12 +5,16 @@
 using namespace std;
 
 int main() {
-
     Student stu1;
+    string stuName;
 
-    stu1.insert("math");
+    cout << "please enter a students name." << endl;
+    cin >> stuName;
+    stu1.setName(stuName);
 
-    cout << stu1 << endl;
+
+
+
 
     return 0;
 }

@@ -26,13 +26,28 @@ public:
     //copy constructor
     Student(const Student& source);
     //Overloaded assignment
-    //Student& operator= (const Student &source);
+    Student& operator= (const Student &source);
     //deconstructor
     ~Student();
     //add a course
     void insert(const string& courseName);
+    void addCourses();
+
+    //getters and setters
+    const string &getName() const;
+
+    void setName(const string &name);
+
+    int getNumCourses() const;
+
+    void setNumCourses(int numCourses);
+
+    string *getCourseList() const;
+
+    void setCourseList(string *courseList);
 
 };
+
 
 
 #endif //COURSES_STUDENT_H

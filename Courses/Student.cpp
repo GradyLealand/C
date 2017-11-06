@@ -13,7 +13,7 @@ using namespace std;
 Student::Student()
 {
     name = "Tim";
-    numCourses = 2;
+    numCourses = 0;
     courseList = new string[numCourses];
 }
 
@@ -42,17 +42,23 @@ Student::Student(const Student& source)
 }
 
 //overloaded assignment operator
-//Student& operator= (const Student &source)
-//{
-//    if (&source != this)
-//    {
-//        numCourses = source.numCourses;
-//        name = source.name;
-//        courseList = source.courseList;
-//        copy(source.courseList, source.courseList + numCourses, courseList);
-//    }
-//    return *this;
-//}
+Student&::Student::operator= (const Student& source)
+{
+    cout << "Overloaded Assignment called" << endl;
+
+    //check for self assignment IE gc1 = gc1
+    if(this == &source)
+    {
+        return *this;
+    }
+
+    name = source.name;
+    numCourses= source.numCourses;
+
+    copy(source.courseList, source.courseList + numCourses, courseList);
+
+    return *this;
+}
 
 //deconstructor
 Student::~Student()
@@ -78,3 +84,57 @@ ostream& operator<< (ostream& os, const Student& stu)
 
     return  os << endl;
 }
+
+//add courses
+void Student::addCourses()
+{
+    int count = 0;
+    while (true) {
+        cout << "Enter a course (exit to stop entering): ";
+        cin >> courseList[count];
+        if (courseList[count] != "exit") {
+            count++;
+
+            if (count >= numCourses) {
+                numCourses++;
+                string *tempArray = new string[numCourses];
+
+                for (int i = 0; i < count; i++) {
+                    tempArray[i] = courseList[i];
+                }
+
+                delete[] courseList;
+                courseList = tempArray;
+                continue;
+            }
+        }else{
+            break;
+        }
+    }
+}
+
+//----Getters & Setters----
+const string &Student::getName() const {
+    return name;
+}
+
+void Student::setName(const string &name) {
+    Student::name = name;
+}
+
+int Student::getNumCourses() const {
+    return numCourses;
+}
+
+void Student::setNumCourses(int numCourses) {
+    Student::numCourses = numCourses;
+}
+
+string *Student::getCourseList() const {
+    return courseList;
+}
+
+void Student::setCourseList(string *courseList) {
+    Student::courseList = courseList;
+}
+
