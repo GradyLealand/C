@@ -20,31 +20,26 @@ private:
 
 public:
     //default constructor
-    Student();
-    //constructor
-    Student(string, int);
+    Student(string name = "Stue", int numCourses = 1);
     //copy constructor
     Student(const Student& source);
     //Overloaded assignment
-    Student& operator= (const Student &source);
+    Student& operator= (const Student& source);
     //deconstructor
     ~Student();
-    //add a course
-    void insert(const string& courseName);
+    //a function to add courses to a students @courseList
     void addCourses();
+    //a function to clear a students @numCourses, @courseList
+    void clearCourses();
+    //get a student name
+    string getNameInput();
 
     //getters and setters
     const string &getName() const;
-
     void setName(const string &name);
-
     int getNumCourses() const;
-
     void setNumCourses(int numCourses);
-
     string *getCourseList() const;
-
-    void setCourseList(string *courseList);
 
 };
 
