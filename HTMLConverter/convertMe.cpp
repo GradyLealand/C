@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-int main()
+int test()
 {
     int x=4;
     if(x<3) x++;
