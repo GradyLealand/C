@@ -8,11 +8,9 @@ int main() {
     //instance converter
     Converter con;
 
-    exists = con.fileExists("/home/prog2100/CLionProjects/GitHub/HTMLConverter/myFileIn.txt");
+    con.setReadFile(con.requestOpenFile());
 
-    cout << exists << endl;
-
-    con.openFile();
+    con.openFile(con.getReadFile(), "/home/prog2100/CLionProjects/GitHub/HTMLConverter/myFileOut.html");
 
 
     return 0;

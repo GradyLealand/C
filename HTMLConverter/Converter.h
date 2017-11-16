@@ -11,10 +11,23 @@
 using namespace std;
 
 class Converter {
+private:
+    string readFile;
+    string writeFile;
 public:
     bool fileExists(const string& fileName);
-    void openFile();
-    void openWrite(string line, bool tag);
+    string requestOpenFile();
+    string requestWriteFile();
+    void openFile(string fileRead, string fileWrite);
+    void openWrite(string file, string line, bool tag);
+
+    const string &getReadFile() const;
+
+    void setReadFile(const string &readFile);
+
+    const string &getWriteFile() const;
+
+    void setWriteFile(const string &writeFile);
 
 };
 
