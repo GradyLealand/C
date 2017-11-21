@@ -10,8 +10,9 @@ int main() {
 
     con.setReadFile(con.requestOpenFile());
 
-    con.openFile(con.getReadFile(), "/home/prog2100/CLionProjects/GitHub/HTMLConverter/myFileOut.html");
+    con.setWriteFile(con.requestWriteFile());
 
+    con.openFile(con.getReadFile(), con.getWriteFile());
 
     return 0;
 }
