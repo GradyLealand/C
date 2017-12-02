@@ -6,11 +6,15 @@
 #define ZOMBIESVSHUMANS_DRIVER_H
 
 #include <string>
+#include "World.h"
 
 
 class Driver {
 public:
     void start();
+
+private:
+    World *world = new World(1);
 };
 
 

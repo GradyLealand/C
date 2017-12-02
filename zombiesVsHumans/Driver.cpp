@@ -7,7 +7,9 @@
 
 void Driver::start()
 {
+    world->display();
     std::cout << "Hello, World!" << std::endl;
+
 }
 
 //build game map
