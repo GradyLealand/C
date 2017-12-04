@@ -5,6 +5,8 @@
 #include "Organism.h"
 #include "World.h"
 
+
+
 Organism::Organism() {
 
 }
@@ -18,11 +20,11 @@ Organism::~Organism() {
 }
 
 bool Organism::getMoved() const {
-    return false;
+    return moved;
 }
 
 void Organism::setMoved(bool oneStep) {
-
+    this->moved = oneStep;
 }
 
 bool Organism::getHasSpawned() {
@@ -34,10 +36,11 @@ void Organism::setHasSpawned(bool hasSpawned) {
 }
 
 int Organism::getSteps() {
-    return 0;
+    return this->stepsInTime;
 }
 
 void Organism::setSteps(int aStepinTime) {
+    this->stepsInTime = aStepinTime;
 
 }
 

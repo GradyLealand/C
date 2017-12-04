@@ -34,7 +34,7 @@ public:
     //Public member methods (For interface/driver)
     Organism *getOrganism(int x, int y) const;
     void setOrganism(int x,int y, Organism* thisOrganism);
-    bool display() const;
+    bool display(int days) const;
     void displayForunix() const;
     void displayForWindows() const;
     void step();

@@ -16,6 +16,7 @@ public:
 private:
     World *world = new World(1);
     bool gameOver;
+    int days;
 };
 
 

@@ -6,7 +6,9 @@
 #include "Zombie.h"
 #include "Human.h"
 #include <iostream>
-#include <stdio.h>
+#define RESET   "\033[0m"
+#define GREEN   "\033[32m"      /* Green */
+#define BLUE    "\033[34m"      /* Blue */
 #include <unistd.h>
 
 using namespace std;
@@ -63,20 +65,20 @@ World::~World() {
 }
 
 Organism *World::getOrganism(int x, int y) const {
-    return nullptr;
+
+    return grid[x][y];
+
 }
 
 void World::setOrganism(int x, int y, Organism *thisOrganism) {
     grid[x][y] = thisOrganism;
 }
 
-bool World::display() const {
+bool World::display(int days) const {
     int r = 0; //row
     int c = 0; //column
     //have the humans gone extinct
     bool gameOver = false;
-    //how many days have passed
-    int days = 0;
 
     //how many zombies and humans are there. reset at the beginning of each display loop
     int hNum = 0;
@@ -90,17 +92,17 @@ bool World::display() const {
                 if (grid[r][c]->getSpecies() == ZOMBIE)//check if equal to a zombie
                 {
                     zNum++;
-                    cout << "Z";
+                    cout << GREEN << "[Z]" << RESET;
                 }
                 else if(grid[r][c]->getSpecies() == HUMAN)//check if equal to a human
                 {
                     hNum++;
-                    cout << "H";
+                    cout <<BLUE << "[H]" << RESET;
                 }
             }
             else//if neither
             {
-                cout << "-";
+                cout << "[ ]";
             }
             c++;
         }while(c < MAXCOL);
@@ -108,8 +110,6 @@ bool World::display() const {
         r++;
         c = 0;
     }while(r < MAXROW);
-    //reset row count and add to days
-    days ++;
 
     //display stats
     cout << "Day: " << days << "   Humans: " << hNum << "   Zombies: " << zNum << endl;
@@ -141,7 +141,12 @@ void World::step() {
         {
             if(grid[i][j] != nullptr)
             {
-                grid[i][j]->move();
+                //make sure the organism has not moved this turn
+                if(!grid[i][j]->getMoved())
+                {
+                    grid[i][j]->move();
+                }
+
             }
         }
     }
@@ -155,6 +160,7 @@ void World::resetMove()
         {
             if(grid[i][j] != nullptr)
             {
+
                 grid[i][j]->setMoved(false);
             }
         }

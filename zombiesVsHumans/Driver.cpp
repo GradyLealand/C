@@ -9,11 +9,16 @@
 
 void Driver::start()
 {
+    days = 0;
     gameOver = false;
     do{
-        gameOver = world->display();
+        days++;
+        gameOver = world->display(days);
         world ->step();
+        //check for human spawn
+        //check for zombie spawn
         sleep(1);
+
     }while (!gameOver);
 
 }
