@@ -4,11 +4,17 @@
 
 #include <iostream>
 #include "Driver.h"
+#include <stdio.h>
+#include <unistd.h>
 
 void Driver::start()
 {
-    world->display();
-    std::cout << "Hello, World!" << std::endl;
+    gameOver = false;
+    do{
+        gameOver = world->display();
+        world ->step();
+        sleep(1);
+    }while (!gameOver);
 
 }
 

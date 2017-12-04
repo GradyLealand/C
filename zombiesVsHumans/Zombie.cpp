@@ -9,7 +9,11 @@ Zombie::Zombie() {
 }
 
 Zombie::Zombie(World *world, int width, int height) : Organism(world, width, height) {
-
+    this->world = world;
+    this->xPos = xPos;
+    this->yPos = yPos;
+    this->x = x;
+    this->y = y;
 }
 
 Zombie::~Zombie() {

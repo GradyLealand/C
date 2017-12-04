@@ -42,5 +42,6 @@ void Organism::setSteps(int aStepinTime) {
 }
 
 void Organism::setPosition(int x, int y) {
-
+    this->xPos = x;
+    this->yPos = y;
 }
