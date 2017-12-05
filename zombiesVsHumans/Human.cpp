@@ -3,6 +3,11 @@
 #include <ctime>
 #include "Organism.h"
 #include "Human.h"
+#include <random>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
 
 Human::Human() {
 
@@ -26,44 +31,49 @@ speciesType Human::getSpecies() {
 }
 
 void Human::move() {
-    srand((unsigned)time(0));
-    //pick a random direction to move and see if the space is free to move too
-    bool freeSpace = false;
-    int xChange, yChange, step, attempt = 0;
-    do
+    struct cord{
+
+        int x;
+        int y;
+        cord(int x, int y)
+        {
+            this->x = x;
+            this->y = y;
+        }
+    };
+
+    vector<cord> cords;
+    cords.push_back(cord({-1, -1}));
+    cords.push_back(cord(0, -1));
+    cords.push_back(cord(1, -1));
+    cords.push_back(cord(-1, 0));
+    cords.push_back(cord(1, 0));
+    cords.push_back(cord(-1, 1));
+    cords.push_back(cord(0, 1));
+    cords.push_back(cord(1, 1));
+
+
+    shuffle(cords.begin(), cords.end(), std::mt19937(std::random_device()()));
+    for(int i = 0; i < cords.size(); i++)
     {
-        step = this->world->returnRandom(8);
-        if(step == 0){xChange = -1; yChange = -1;}
-        else if(step ==1){xChange = 0; yChange = -1;}
-        else if (step == 2){xChange = 1; yChange = -1;}
-        else if (step == 3){xChange = -1; yChange = 0;}
-        else if (step == 4){xChange = 1; yChange = 0;}
-        else if (step == 5){xChange = -1; yChange = 1;}
-        else if (step == 6){xChange = 0; yChange = 1;}
-        else if (step == 7){xChange = 1; yChange = 1;}
-        //if you have tried to move 7 times already just stay where you are
-        if (attempt == 100){xChange = 0; yChange = 0;}
-
-
-        if(this->world->getOrganism(xPos + xChange, yPos + yChange) == nullptr){
+        //if the spot is free then move
+        if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) == nullptr)
+        {
             //increase steps
             this->stepsInTime += 1;
             //move the organism
-            world->setOrganism(xPos + xChange, yPos + yChange, this);
+            world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, this);
             //assign it the previous steps +1
-            world->getOrganism(xPos + xChange, yPos + yChange)->setMoved(true);
+            world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->setMoved(true);
             world->setOrganism(xPos , yPos, nullptr);
             //assign current cords to human
-            this->xPos += xChange;
-            this->yPos += yChange;
-            this->x += xChange;
-            this->y += yChange;
-            freeSpace = true;
-
+            this->xPos += cords[i].x;
+            this->yPos += cords[i].y;
+            this->x += cords[i].x;
+            this->y += cords[i].y;
         }
-        attempt++;
-    }while(!freeSpace);
-    //if it is not free pick a different spot
+    }
+
 
 
 }

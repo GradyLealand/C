@@ -75,6 +75,11 @@ void World::setOrganism(int x, int y, Organism *thisOrganism) {
 }
 
 bool World::display(int days) const {
+    return displayForunix(days);
+
+}//end display
+
+bool World::displayForunix(int days) const {
     int r = 0; //row
     int c = 0; //column
     //have the humans gone extinct
@@ -118,13 +123,12 @@ bool World::display(int days) const {
 
         cout << "extinction happened after " << days << " days" << endl;
         return true;
-    }else if(zNum)
+    }else if(zNum == 0)
+    {
+        cout << "extinction happened after " << days << " days" << endl;
+        return true;
+    }
     return false;
-
-}//end display
-
-void World::displayForunix() const {
-
 }
 
 void World::displayForWindows() const {
