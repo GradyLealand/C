@@ -138,22 +138,17 @@ void World::displayForWindows() const {
 void World::step() {
     //reset movement of all organisms
     resetMove();
-
-    for (int i = 0; i < MAXCOL; i++)
-    {
-        for (int j = 0; j < MAXROW; j++)
-        {
-            if(grid[i][j] != nullptr)
-            {
+    for (auto &i : grid) {
+        for (auto &j : i) {
+            if (j != nullptr) {
                 //make sure the organism has not moved this turn
-                if(!grid[i][j]->getMoved())
-                {
-                    grid[i][j]->move();
+                if (!j->getMoved()) {
+                    j->move();
                 }
-
             }
         }
     }
+
 }
 
 void World::resetMove()

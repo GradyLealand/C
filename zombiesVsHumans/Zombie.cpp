@@ -4,6 +4,9 @@
 
 #include <cstdlib>
 #include "Zombie.h"
+#include <algorithm>
+
+using namespace std;
 
 Zombie::Zombie() {
 
@@ -26,106 +29,108 @@ speciesType Zombie::getSpecies() {
 }
 
 void Zombie::move() {
-//    //pick a random direction to move and see if the space is free to move too
-//    bool freeSpace = false;
-//    bool humanFound = false;
-//    int xChange, yChange, step, attempt = 0, humanCheck;
-//    do
-//    {
-//
-//        //check for humans
-//        do
-//        {
-//            step = this->world->returnRandom(8);
-//            if(step == 0){xChange = -1; yChange = -1;}
-//            else if(step ==1){xChange = 0; yChange = -1;}
-//            else if (step == 2){xChange = 1; yChange = -1;}
-//            else if (step == 3){xChange = -1; yChange = 0;}
-//            else if (step == 4){xChange = 1; yChange = 0;}
-//            else if (step == 5){xChange = -1; yChange = 1;}
-//            else if (step == 6){xChange = 0; yChange = 1;}
-//            else if (step == 7){xChange = 1; yChange = 1;}
-//            //check for human only if in bounds
-//            if(this->xPos + xChange < 20 && this->xPos + xChange > 0 && this->yPos + yChange < 20 && this->yPos > 0 )
-//            {
-//                if(world->getOrganism(xPos + xChange, yPos + yChange) != nullptr)
-//                {
-//                    world->getOrganism(xPos + xChange, yPos + yChange);
-//                    if (world->getOrganism(xPos + xChange, yPos + yChange)->getSpecies() == HUMAN)
-//                    {
-//                        humanFound = true;
-//                    }
-//                }
-//            }
-//            humanCheck++;
-//        }while(!humanFound && humanCheck < 100 );
-//
-//        //if no humans move
-//        if(!humanFound)
-//        {
-//            step = this->world->returnRandom(8);
-//            if(step == 0){xChange = -1; yChange = -1;}
-//            else if(step ==1){xChange = 0; yChange = -1;}
-//            else if (step == 2){xChange = 1; yChange = -1;}
-//            else if (step == 3){xChange = -1; yChange = 0;}
-//            else if (step == 4){xChange = 1; yChange = 0;}
-//            else if (step == 5){xChange = -1; yChange = 1;}
-//            else if (step == 6){xChange = 0; yChange = 1;}
-//            else if (step == 7){xChange = 1; yChange = 1;}
-//            attempt++;
-//            //if you cant find a free space after 100 attempts there are none, stay where you are
-//            if (attempt == 100){this->stepsInTime +=1; this->moved = true; freeSpace = true;}
-//        }
-//
-//
-//        //if no human found move like this
-//        if(!humanFound)
-//        {
-//            if(this->world->getOrganism(xPos + xChange, yPos + yChange) == nullptr){
-//                //increase steps and starvation
-//                this->stepsInTime += 1;
-//                this->starvation += 1;
-//                //check to see if the zombie is starved
-//                if(this->starvation == 3)
-//                {
-//                    //kill the zomebie
-//                    starveThisZombie();
-//                }
-//                else
-//                {
-//                    //if not starved move the zombie
-//                    world->setOrganism(xPos + xChange, yPos + yChange, this);
-//                    world->getOrganism(xPos + xChange, yPos + yChange)->setMoved(true);
-//                    world->setOrganism(xPos , yPos, nullptr);
-//                    //assign current cords to zombie
-//                    this->xPos += xChange;
-//                    this->yPos += yChange;
-//                    this->x += xChange;
-//                    this->y += yChange;
-//                }
-//                //move the organism
-//
-//                freeSpace = true;
-//            }
-//        }
-//        else//if human found remove it then move zombie there
-//        {
-//            //step and reset starvation
-//            this->stepsInTime += 1;
-//            this->starvation = 0;
-//            world->setOrganism(xPos + xChange, yPos + yChange, this);
-//            world->getOrganism(xPos + xChange, yPos + yChange)->setMoved(true);
-//            world->setOrganism(xPos , yPos, nullptr);
-//            this->xPos += xChange;
-//            this->yPos += yChange;
-//            this->x += xChange;
-//            this->y += yChange;
-//            freeSpace = true;
-//        }
-//
-//
-//        attempt++;
-//    }while(!freeSpace);
+    //a bool to chekc if the zombie has ben fed
+    bool fed = false;
+
+    //a structure to hold possible movements
+    struct cord{
+
+        int x;
+        int y;
+        cord(int x, int y)
+        {
+            this->x = x;
+            this->y = y;
+        }
+    };
+    //create a vector with possible neighboring cords
+    vector<cord> cords;
+    cords.push_back(cord({-1, -1}));
+    cords.push_back(cord(0, -1));
+    cords.push_back(cord(1, -1));
+    cords.push_back(cord(-1, 0));
+    cords.push_back(cord(1, 0));
+    cords.push_back(cord(-1, 1));
+    cords.push_back(cord(0, 1));
+    cords.push_back(cord(1, 1));
+    //shuffle the cords so the movement is random
+    shuffle(cords.begin(), cords.end(), std::mt19937(std::random_device()()));
+
+    //look for a human
+    for (int i = 0; i < cords.size(); i++)
+    {
+        //only check if the value is inbounds
+        if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < 20
+           && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < 20)
+        {
+            //check to see if it is a nullptr
+            if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) != nullptr)
+            {
+                //if not a null pointer check to see if the organism is a human
+                if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->getSpecies() == HUMAN)
+                {
+                    //add to steps
+                    this->stepsInTime += 1;
+                    //reset starvation
+                    this->starvation = 0;
+                    //move into the space
+                    world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, this);
+                    world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->setMoved(true);
+                    world->setOrganism(xPos , yPos, nullptr);
+                    //assign current cords to zombie
+                    this->xPos += cords[i].x;
+                    this->yPos += cords[i].y;
+                    this->x += cords[i].x;
+                    this->y += cords[i].y;
+                    //set fed to true
+                    fed = true;
+                    break;
+                }
+            }
+        }
+
+    }//end of loop to check for humans
+
+    //if no humans were found then look for possible non feeding moves
+    if(!fed){
+        for (int i = 0; i < cords.size(); i++)
+        {
+            //only check if the value is inbounds
+            if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < 20
+               && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < 20)
+            {
+                //check to see if it is a nullptr
+                if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) == nullptr)
+                {
+
+                    //add to starvation and movement
+                    this->stepsInTime += 1;
+                    this->starvation += 1;
+                    //check to see if the zombie has starved
+                    if(this->starvation >= 3)
+                    {
+                        this->starveThisZombie();
+                        break;
+                    }
+                    else
+                    {
+                        //move into the space
+                        world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, this);
+                        world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->setMoved(true);
+                        world->setOrganism(xPos , yPos, nullptr);
+                        //assign current cords to zombie
+                        this->xPos += cords[i].x;
+                        this->yPos += cords[i].y;
+                        this->x += cords[i].x;
+                        this->y += cords[i].y;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
 }
 
 void Zombie::spawn() {
