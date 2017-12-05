@@ -45,13 +45,13 @@ void Zombie::move() {
     };
     //create a vector with possible neighboring cords
     vector<cord> cords;
-    cords.push_back(cord({-1, -1}));
-    cords.push_back(cord(0, -1));
-    cords.push_back(cord(1, -1));
-    cords.push_back(cord(-1, 0));
-    cords.push_back(cord(1, 0));
+    cords.push_back(cord(-1, -1));
+    cords.push_back(cord(-1, -0));
     cords.push_back(cord(-1, 1));
+    cords.push_back(cord(0, -1));
     cords.push_back(cord(0, 1));
+    cords.push_back(cord(1, -1));
+    cords.push_back(cord(1, 0));
     cords.push_back(cord(1, 1));
     //shuffle the cords so the movement is random
     shuffle(cords.begin(), cords.end(), std::mt19937(std::random_device()()));
@@ -60,8 +60,8 @@ void Zombie::move() {
     for (int i = 0; i < cords.size(); i++)
     {
         //only check if the value is inbounds
-        if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < 20
-           && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < 20)
+        if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < MAXROW
+           && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < MAXCOL)
         {
             //check to see if it is a nullptr
             if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) != nullptr)
@@ -74,9 +74,10 @@ void Zombie::move() {
                     //reset starvation
                     this->starvation = 0;
                     //move into the space
+                    world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, nullptr);
                     world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, this);
                     world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->setMoved(true);
-                    world->setOrganism(xPos , yPos, nullptr);
+                    world->setOrganism(xPos, yPos, nullptr);
                     //assign current cords to zombie
                     this->xPos += cords[i].x;
                     this->yPos += cords[i].y;
@@ -88,7 +89,6 @@ void Zombie::move() {
                 }
             }
         }
-
     }//end of loop to check for humans
 
     //if no humans were found then look for possible non feeding moves

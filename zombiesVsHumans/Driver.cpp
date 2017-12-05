@@ -16,6 +16,7 @@ void Driver::start()
         gameOver = world->display(days);
         world ->step();
         //check for human spawn
+
         //check for zombie spawn
         sleep(1);
 

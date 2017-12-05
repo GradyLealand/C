@@ -44,13 +44,13 @@ void Human::move() {
     };
     //create a vector with possible neghboring cords
     vector<cord> cords;
-    cords.push_back(cord({-1, -1}));
-    cords.push_back(cord(0, -1));
-    cords.push_back(cord(1, -1));
-    cords.push_back(cord(-1, 0));
-    cords.push_back(cord(1, 0));
+    cords.push_back(cord(-1, -1));
+    cords.push_back(cord(-1, -0));
     cords.push_back(cord(-1, 1));
+    cords.push_back(cord(0, -1));
     cords.push_back(cord(0, 1));
+    cords.push_back(cord(1, -1));
+    cords.push_back(cord(1, 0));
     cords.push_back(cord(1, 1));
     //suffle the cords so the movement is random
     shuffle(cords.begin(), cords.end(), std::mt19937(std::random_device()()));
