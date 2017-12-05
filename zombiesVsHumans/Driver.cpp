@@ -4,22 +4,32 @@
 
 #include <iostream>
 #include "Driver.h"
-#include <stdio.h>
 #include <unistd.h>
-#include <time.h>
 
 
 
 void Driver::start()
 {
+    double interval = 0.1;
+    double counter = 0;
+    clock_t this_time = clock();
+    clock_t last_time = this_time;
     days = 0;
     gameOver = false;
+
     do{
-        days++;
-        gameOver = world->display(days);
-        world ->step();
-        world->spawnOrganisms();
-        sleep(1);
+        this_time = clock();
+        counter += this_time - last_time;
+        last_time = this_time;
+        if(counter > interval * CLOCKS_PER_SEC)
+        {
+            counter -= interval * CLOCKS_PER_SEC;
+            days++;
+            gameOver = world->display(days);
+            world ->step();
+            world->spawnOrganisms();
+        }
+
 
     }while (!gameOver);
 
