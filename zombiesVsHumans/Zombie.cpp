@@ -160,8 +160,8 @@ void Zombie::spawn() {
     for (int i = 0; i < cords.size(); i++)
     {
         //only check if the value is inbounds
-        if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < 20
-           && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < 20)
+        if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < MAXCOL
+           && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < MAXROW)
         {
             //check to see if it is a nullptr
             if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) != nullptr)

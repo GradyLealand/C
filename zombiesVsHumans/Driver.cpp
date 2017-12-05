@@ -10,7 +10,7 @@
 
 void Driver::start()
 {
-    double interval = 0.1;
+    double interval = 0.5;
     double counter = 0;
     clock_t this_time = clock();
     clock_t last_time = this_time;
