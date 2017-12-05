@@ -14,6 +14,7 @@ public:
     void start();
 
 private:
+    const int NUM_SECONDS = 1;
     World *world = new World(1);
     bool gameOver;
     int days;

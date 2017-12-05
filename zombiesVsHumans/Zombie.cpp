@@ -107,7 +107,7 @@ void Zombie::move() {
                     this->stepsInTime += 1;
                     this->starvation += 1;
                     //check to see if the zombie has starved
-                    if(this->starvation >= 3)
+                    if(this->starvation >= STARVEZOMBIE)
                     {
                         this->starveThisZombie();
                         break;
@@ -134,6 +134,49 @@ void Zombie::move() {
 }
 
 void Zombie::spawn() {
+//a structure to hold possible movements
+    struct cord{
+
+        int x;
+        int y;
+        cord(int x, int y)
+        {
+            this->x = x;
+            this->y = y;
+        }
+    };
+    //create a vector with possible neighboring cords
+    vector<cord> cords;
+    cords.push_back(cord(-1, -1));
+    cords.push_back(cord(-1, -0));
+    cords.push_back(cord(-1, 1));
+    cords.push_back(cord(0, -1));
+    cords.push_back(cord(0, 1));
+    cords.push_back(cord(1, -1));
+    cords.push_back(cord(1, 0));
+    cords.push_back(cord(1, 1));
+
+    //loop through the vector to see if there is a free spot to spawn
+    for (int i = 0; i < cords.size(); i++)
+    {
+        //only check if the value is inbounds
+        if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < 20
+           && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < 20)
+        {
+            //check to see if it is a nullptr
+            if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) != nullptr)
+            {
+                //check for a human
+                if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->getSpecies() == HUMAN)
+                {
+                    world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, new Zombie(world, xPos + cords[i].x, yPos + cords[i].y));
+                    //set the new human to has spawned so it can re spawn this turn
+                    world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->setHasSpawned(true);
+                    break;
+                }
+            }
+        }
+    }
 
 }
 

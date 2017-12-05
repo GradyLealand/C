@@ -6,6 +6,9 @@
 #include "Driver.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <time.h>
+
+
 
 void Driver::start()
 {
@@ -15,9 +18,7 @@ void Driver::start()
         days++;
         gameOver = world->display(days);
         world ->step();
-        //check for human spawn
-
-        //check for zombie spawn
+        world->spawnOrganisms();
         sleep(1);
 
     }while (!gameOver);

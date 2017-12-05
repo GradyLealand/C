@@ -28,11 +28,11 @@ void Organism::setMoved(bool oneStep) {
 }
 
 bool Organism::getHasSpawned() {
-    return false;
+    return hasSpawned;
 }
 
-void Organism::setHasSpawned(bool hasSpawned) {
-
+void Organism::setHasSpawned(bool spawn) {
+    this->hasSpawned = spawn;
 }
 
 int Organism::getSteps() {

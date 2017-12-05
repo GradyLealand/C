@@ -53,7 +53,32 @@ void World::moveOrganisms() {
 }
 
 void World::spawnOrganisms() {
-
+    for (auto &i : grid) {
+        for (auto &j : i) {
+            if (j != nullptr) {
+                if(!j->getHasSpawned())
+                {
+                    //check for human or zombie
+                    if(j->getSpecies() == ZOMBIE)
+                    {
+                        //check to see if it has done the required steps to spawn
+                        if(j->getSteps() % SPAWNZOMBIES == 0)
+                        {
+                            j->spawn();
+                        }
+                    }
+                    else if(j->getSpecies() == HUMAN)
+                    {
+                        //check to see if it has done the required steps to spawn
+                        if(j->getSteps() % SPAWNHUMANS == 0)
+                        {
+                            j->spawn();
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 World::World(int rand) {
@@ -161,6 +186,7 @@ void World::resetMove()
             {
 
                 grid[i][j]->setMoved(false);
+                grid[i][j]->setHasSpawned(false);
             }
         }
     }

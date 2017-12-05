@@ -33,7 +33,7 @@ public:
     void setMoved(bool oneStep);
 
     bool getHasSpawned();
-    void setHasSpawned(bool hasSpawned);
+    void setHasSpawned(bool spawn);
 
     int getSteps();
     void setSteps(int aStepinTime);

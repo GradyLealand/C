@@ -7,10 +7,10 @@
 class Organism;//Superclass organism is an abstraction of an entity inside a world
 
 //const int ARRAYSIZE = 20;//Default grid dimensions
-const int MAXROW = 5;
-const int MAXCOL = 5;
-const int INITHUMANS = 10;//Initial population of humans
-const int INITZOMBIES = 4;//Initial population of zombies
+const int MAXROW = 20;
+const int MAXCOL = 20;
+const int INITHUMANS = 100;//Initial population of humans
+const int INITZOMBIES = 5;//Initial population of zombies
 const int SPAWNHUMANS = 3;//A step in time when humans spawn
 const int SPAWNZOMBIES = 8;//A step in time when zombies spawn
 const int STARVEZOMBIE = 3;//A step in time when zombies starve
@@ -24,7 +24,7 @@ private:
     void populateWorld();
     void setMovedToFalse();
     void moveOrganisms();
-    void spawnOrganisms();
+
 
 public:
     //Constructor(s), Destructor(s)
@@ -40,6 +40,7 @@ public:
     void step();
     int returnRandom(int thisNumber) const;
     void resetMove();
+    void spawnOrganisms();
 
     int count = 0;
 };
