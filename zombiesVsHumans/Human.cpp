@@ -45,16 +45,19 @@ void Human::move() {
         if (attempt == 100){xChange = 0; yChange = 0;}
 
 
-
         if(this->world->getOrganism(xPos + xChange, yPos + yChange) == nullptr){
-            //get the setps before the organism moves
-            int moves =  world->getOrganism(xPos, yPos)->getSteps();
+            //increase steps
+            this->stepsInTime += 1;
             //move the organism
-            world->setOrganism(xPos + xChange, yPos + yChange, new Human(world, xPos + xChange, yPos + yChange));
+            world->setOrganism(xPos + xChange, yPos + yChange, this);
             //assign it the previous steps +1
-            world->getOrganism(xPos + xChange, yPos + yChange)->setSteps(moves + 1);
             world->getOrganism(xPos + xChange, yPos + yChange)->setMoved(true);
             world->setOrganism(xPos , yPos, nullptr);
+            //assign current cords to human
+            this->xPos += xChange;
+            this->yPos += yChange;
+            this->x += xChange;
+            this->y += yChange;
             freeSpace = true;
 
         }

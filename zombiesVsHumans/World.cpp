@@ -118,7 +118,7 @@ bool World::display(int days) const {
 
         cout << "extinction happened after " << days << " days" << endl;
         return true;
-    }
+    }else if(zNum)
     return false;
 
 }//end display
