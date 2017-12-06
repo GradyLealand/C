@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include "Zombie.h"
+#include "Human.h"
 #include <algorithm>
 
 using namespace std;
@@ -43,7 +44,7 @@ void Zombie::move() {
             this->y = y;
         }
     };
-    //create a vector with possible neighboring cords
+    //create a vector to look for humans
     vector<cord> cords;
     cords.push_back(cord(-1, -1));
     cords.push_back(cord(-1, -0));
@@ -53,6 +54,12 @@ void Zombie::move() {
     cords.push_back(cord(1, -1));
     cords.push_back(cord(1, 0));
     cords.push_back(cord(1, 1));
+    //create a vector to move without eating
+    vector<cord> moves;
+    cords.push_back(cord(-1, -0));
+    cords.push_back(cord(0, -1));
+    cords.push_back(cord(0, 1));
+    cords.push_back(cord(1, 0));
     //shuffle the cords so the movement is random
     shuffle(cords.begin(), cords.end(), std::mt19937(std::random_device()()));
 
@@ -99,31 +106,34 @@ void Zombie::move() {
             if(this->xPos + cords[i].x >= 0 && this->xPos + cords[i].x < 20
                && this->yPos + cords[i].y >= 0 && this->yPos + cords[i].y < 20)
             {
-                //check to see if it is a nullptr
-                if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) == nullptr)
+                if(cords[i].x == 0 || cords[i].y == 0)
                 {
+                    //check to see if it is a nullptr
+                    if(world->getOrganism(xPos + cords[i].x, yPos + cords[i].y) == nullptr)
+                    {
 
-                    //add to starvation and movement
-                    this->stepsInTime += 1;
-                    this->starvation += 1;
-                    //check to see if the zombie has starved
-                    if(this->starvation >= STARVEZOMBIE)
-                    {
-                        this->starveThisZombie();
-                        break;
-                    }
-                    else
-                    {
-                        //move into the space
-                        world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, this);
-                        world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->setMoved(true);
-                        world->setOrganism(xPos , yPos, nullptr);
-                        //assign current cords to zombie
-                        this->xPos += cords[i].x;
-                        this->yPos += cords[i].y;
-                        this->x += cords[i].x;
-                        this->y += cords[i].y;
-                        break;
+                        //add to starvation and movement
+                        this->stepsInTime += 1;
+                        this->starvation += 1;
+                        //check to see if the zombie has starved
+                        if(this->starvation >= STARVEZOMBIE)
+                        {
+                            this->starveThisZombie();
+                            break;
+                        }
+                        else
+                        {
+                            //move into the space
+                            world->setOrganism(xPos + cords[i].x, yPos + cords[i].y, this);
+                            world->getOrganism(xPos + cords[i].x, yPos + cords[i].y)->setMoved(true);
+                            world->setOrganism(xPos , yPos, nullptr);
+                            //assign current cords to zombie
+                            this->xPos += cords[i].x;
+                            this->yPos += cords[i].y;
+                            this->x += cords[i].x;
+                            this->y += cords[i].y;
+                            break;
+                        }
                     }
                 }
             }
@@ -147,14 +157,10 @@ void Zombie::spawn() {
     };
     //create a vector with possible neighboring cords
     vector<cord> cords;
-    cords.push_back(cord(-1, -1));
     cords.push_back(cord(-1, -0));
-    cords.push_back(cord(-1, 1));
     cords.push_back(cord(0, -1));
     cords.push_back(cord(0, 1));
-    cords.push_back(cord(1, -1));
     cords.push_back(cord(1, 0));
-    cords.push_back(cord(1, 1));
 
     //loop through the vector to see if there is a free spot to spawn
     for (int i = 0; i < cords.size(); i++)
@@ -181,7 +187,7 @@ void Zombie::spawn() {
 }
 
 void Zombie::starveThisZombie() {
-    world->setOrganism(xPos , yPos, nullptr);
+    world->setOrganism(xPos , yPos, new Human(world, xPos, yPos));
 }
 
 int Zombie::getStarvation() {

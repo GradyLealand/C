@@ -13,7 +13,7 @@ const int INITHUMANS = 100;//Initial population of humans
 const int INITZOMBIES = 5;//Initial population of zombies
 const int SPAWNHUMANS = 3;//A step in time when humans spawn
 const int SPAWNZOMBIES = 8;//A step in time when zombies spawn
-const int STARVEZOMBIE = 3;//A step in time when zombies starve
+const int STARVEZOMBIE = 10;//A step in time when zombies starve
 
 class World//Prototype of a world object
 {
