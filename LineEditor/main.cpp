@@ -23,6 +23,8 @@ int main() {
     list.Add(1);
     list.Add(7);
     list.Add(9);
+    list.Add(13);
+    list.Add(20);
 
     cout << "The list contains the following numbers: " << endl << endl;
     cout << list;
@@ -44,10 +46,11 @@ int main() {
     // tests to insert after valid node
     list.InsertAfterValue(3, 10);
     // test to insert after non-existent node
-    list.InsertAfterValue(11, 12);
+    list.InsertAfterValue(25, 33);
+    list.InsertBeforeNode(5,11);
 
     cout << "The list contains the following numbers: " << endl << endl;
     cout << list;
-
+    cin.ignore();
     return 0;
 }

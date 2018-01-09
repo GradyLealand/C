@@ -3,9 +3,12 @@
 //
 
 #include "MyLinkedList.h"
+
+using namespace std;
+
 MyLinkedList::MyLinkedList() : first(nullptr) {}
 
-virtual MyLinkedList:: ~MyLinkedList()
+MyLinkedList:: ~MyLinkedList()
 {
     Node *node = first;
 
@@ -151,7 +154,49 @@ void MyLinkedList::InsertAfterValue(int value, int num)
     }
 }
 
-MyLinkedList::ostream& operator<<(ostream& output, LinkedList& list)
+void MyLinkedList::InsertBeforeNode(int nodenum, int num)
+{
+    int index = -1;
+    Node *newnode = new Node();
+    newnode->data = num;
+    Node *node = first;
+    Node *prev = first;
+
+    while (node != nullptr)
+    {
+        index++;
+
+        if (index == nodenum)
+        {
+            break;
+        }
+
+        prev = node;
+        node = node->next;
+    }
+
+    // insert node into list
+    if (first == nullptr)
+    {
+        first = newnode;
+    }
+    else
+    {
+        if (node != nullptr)
+        {
+            prev->next = newnode;
+            newnode->next = node;
+        }
+        else
+        {
+            // could not find the node to insert after
+            // so defaulting to Add function
+            Add(num);
+        }
+    }
+}
+
+ostream &operator<<(ostream& output, MyLinkedList &list)
 {
     Node *currNode = list.first;
 
@@ -164,5 +209,4 @@ MyLinkedList::ostream& operator<<(ostream& output, LinkedList& list)
 
     return output;
 }
-};
 

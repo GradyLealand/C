@@ -4,7 +4,11 @@
 
 #ifndef LINEEDITOR_MYLINKEDLIST_H
 #define LINEEDITOR_MYLINKEDLIST_H
+
+#include <iostream>
 #include "Node.h"
+
+using namespace std;
 
 class MyLinkedList {
 private:
@@ -23,7 +27,9 @@ public:
 
     void InsertAfterValue(int value, int num);
 
-    friend ostream& operator<<(ostream& output, LinkedList& list);
+    void InsertBeforeNode(int nodenum, int num);
+
+    friend ostream &operator<<(ostream &output, MyLinkedList &list);
 };
 
 

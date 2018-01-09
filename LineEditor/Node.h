@@ -2,8 +2,8 @@
 // Created by prog2100 on 08/01/18.
 //
 
-#ifndef LINEEDITOR_NODE_H
-#define LINEEDITOR_NODE_H
+#ifndef LINKEDLIST_NODE_H
+#define LINKEDLIST_NODE_H
 
 
 class Node
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif //LINEEDITOR_NODE_H
+#endif //LINKEDLIST_NODE_H
