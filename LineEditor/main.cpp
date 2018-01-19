@@ -1,5 +1,5 @@
 #include <iostream>
-#include "MyLinkedList.h"
+#include "LinkedList.h"
 
 using namespace std;
 
@@ -15,42 +15,46 @@ int main() {
 
 
     // test 1: adding new nodes
+    LinkedList obj;
+    obj.createNode("meow");
+    obj.createNode("is");
+    obj.createNode("meow");
+    obj.createNode("a");
+    cout<<"\n--------------------------------------------------\n";
+    cout<<"---------------Displaying All nodes---------------";
+    cout<<"\n--------------------------------------------------\n";
+    obj.display();
+    cout<<"\n--------------------------------------------------\n";
+    cout<<"-----------------Inserting At End-----------------";
+    cout<<"\n--------------------------------------------------\n";
+    obj.createNode("meow");
+    obj.display();
+    cout<<"\n--------------------------------------------------\n";
+    cout<<"----------------Deleting At Start-----------------";
+    cout<<"\n--------------------------------------------------\n";
+    obj.deleteHead();
+    obj.display();
+    cout<<"\n--------------------------------------------------\n";
+    cout<<"----------------Inserting At Start----------------";
+    cout<<"\n--------------------------------------------------\n";
+    obj.insertHead("this");
+    obj.display();
+    cout<<"\n--------------------------------------------------\n";
+    cout<<"-------------Inserting At Particular--------------";
+    cout<<"\n--------------------------------------------------\n";
+    obj.insterMid(5, "LinkedList");
+    obj.display();
+    cout<<"\n--------------------------------------------------\n";
+    cout<<"-----------------Deleting At End-------------------";
+    cout<<"\n--------------------------------------------------\n";
+    obj.deleteTail();
+    obj.display();
+    cout<<"\n--------------------------------------------------\n";
+    cout<<"--------------Deleting At Particular--------------";
+    cout<<"\n--------------------------------------------------\n";
+    obj.deleteMid(3);
+    obj.display();
+    cout<<"\n--------------------------------------------------\n";
 
-    MyLinkedList list;
-
-    list.Add(3);
-    list.Add(5);
-    list.Add(1);
-    list.Add(7);
-    list.Add(9);
-    list.Add(13);
-    list.Add(20);
-
-    cout << "The list contains the following numbers: " << endl << endl;
-    cout << list;
-
-    // test 2: delete a node
-
-    cout << "\nDeleting...." << endl;
-
-    list.DeleteValue(1);
-    list.DeleteNode(2);
-
-    cout << "The list contains the following numbers: " << endl << endl;
-    cout << list;
-
-    // test 3: insert a node
-
-    cout << "\nInserting...." << endl;
-
-    // tests to insert after valid node
-    list.InsertAfterValue(3, 10);
-    // test to insert after non-existent node
-    list.InsertAfterValue(25, 33);
-    list.InsertBeforeNode(5,11);
-
-    cout << "The list contains the following numbers: " << endl << endl;
-    cout << list;
-    cin.ignore();
     return 0;
 }
