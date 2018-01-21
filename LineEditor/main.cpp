@@ -1,9 +1,12 @@
 #include <iostream>
 #include "LinkedList.h"
+#include "FileHandler.h"
 
 using namespace std;
 
 int main() {
+    FileHandler fileHandler;
+
     //ask for file name
         //check to see if file exists
             //if it dose oppen file
@@ -20,6 +23,7 @@ int main() {
     obj.createNode("is");
     obj.createNode("meow");
     obj.createNode("a");
+    fileHandler.readFile("/home/prog2100/CLionProjects/GitHub/LineEditor/text.txt", obj);
     cout<<"\n--------------------------------------------------\n";
     cout<<"---------------Displaying All nodes---------------";
     cout<<"\n--------------------------------------------------\n";
@@ -55,6 +59,8 @@ int main() {
     obj.deleteMid(3);
     obj.display();
     cout<<"\n--------------------------------------------------\n";
+
+
 
     return 0;
 }
