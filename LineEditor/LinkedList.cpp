@@ -50,12 +50,15 @@ void LinkedList::display()
     //set the pointer equal to the head node
     temp = head;
 
+    //a variable to hold the line count
+    int count = 1;
     while(temp != nullptr)
     {
         //ass long as the pointer is not null print the node it is on
-        cout<<temp->data<<"\n";
+        cout<< count << ". " << temp->data << endl;
         //then move the pointer to the next node
         temp=temp->next;
+        count++;
     }
 }
 
