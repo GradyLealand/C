@@ -133,6 +133,14 @@ void LinkedList::deleteMid(int position)
     prev->next = crnt->next;
 }
 
+node *LinkedList::getHead() const {
+    return head;
+}
+
+node *LinkedList::getTail() const {
+    return tail;
+}
+
 
 
 

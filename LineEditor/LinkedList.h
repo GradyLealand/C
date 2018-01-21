@@ -5,18 +5,13 @@
 #ifndef LINEEDITOR_LINKEDLIST_H
 #define LINEEDITOR_LINKEDLIST_H
 #include <string>
+#include "node.h"
 
 using namespace std;
 class LinkedList {
 
-    struct node
-    {
-        string data;
-        node *next;
-    };
 
 private:
-
     node *head, *tail;
 
 
@@ -33,7 +28,9 @@ public:
     void deleteTail();
     void deleteMid(int position);
 
+    node *getHead() const;
 
+    node *getTail() const;
 
 
 };

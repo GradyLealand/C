@@ -52,5 +52,49 @@ void FileHandler::readFileIn(string readFile, LinkedList list)
 
 void FileHandler::writeFileOut(string writeFile, LinkedList list)
 {
+    ofstream fileOut;
 
+    //to append to a file - use ios::app
+    try
+    {
+        fileOut.open(writeFile,ios::app);
+        fileOut.exceptions ( ifstream::eofbit | ifstream::failbit | ifstream::badbit );
+    }
+    catch(const ofstream::failure& e)
+    {
+        cout << "Error opening write file";
+    }
+    catch(std::exception const& e)
+    {
+        cout << "There was an error: " << e.what() << endl;
+    }
+
+
+    if (fileOut.is_open())//or if(myFileOut.fail)
+    {
+        //make a pointer to walk through the list
+        node *temp = new node;
+        //set the pointer equal to the head node
+        temp = list.getHead();
+
+        while(temp != nullptr)
+        {
+            string line = temp->data;
+            fileOut << line;
+            temp=temp->next;
+        }
+    }
+    else if(fileOut.fail())
+    {
+        cout << "Output file failed to open" << endl;
+        cin.ignore();
+    }
+
+    try{
+        fileOut.close();
+    }
+    catch(exception& e)
+    {
+        cout << "error while closing write file";
+    }
 }
