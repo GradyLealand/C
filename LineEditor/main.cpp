@@ -23,7 +23,7 @@ int main() {
     obj.createNode("is");
     obj.createNode("meow");
     obj.createNode("a");
-    fileHandler.writeFileOut("/home/prog2100/CLionProjects/GitHub/LineEditor/text.txt", obj);
+    fileHandler.writeFileOut("/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", obj);
     //fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/text.txt", obj);
     cout<<"\n--------------------------------------------------\n";
     cout<<"---------------Displaying All nodes---------------";

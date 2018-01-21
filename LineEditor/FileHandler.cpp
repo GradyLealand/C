@@ -80,7 +80,7 @@ void FileHandler::writeFileOut(string writeFile, LinkedList list)
         while(temp != nullptr)
         {
             string line = temp->data;
-            fileOut << line;
+            fileOut << line << endl;
             temp=temp->next;
         }
     }
