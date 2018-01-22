@@ -25,16 +25,16 @@ int main() {
     obj.createNode("is");
     obj.createNode("meow");
     obj.createNode("a");
-    //fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/in.txt", obj);
-    fileHandler.writeFileOut("/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", obj);
+    fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/in.txt", obj);
     obj.display();
 
     while(curentLine != 0)
     {
-        string comand;
+        string command;
         cout << "Line " << curentLine << ":";
-        cin >> comand;
-        curentLine = fileHandler.inputCommand(comand, curentLine, obj);
+        getline(cin, command);
+        curentLine = fileHandler.inputCommand(command, "/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", curentLine, obj);
+        obj.display();
     }
     //fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/text.txt", obj);
 //    cout<<"\n--------------------------------------------------\n";

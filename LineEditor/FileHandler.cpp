@@ -17,7 +17,6 @@ void FileHandler::readFileIn(string readFile, LinkedList list)
     ifstream fileIn;
     try{
         fileIn.open(readFile);
-        fileIn.exceptions ( ifstream::eofbit | ifstream::failbit | ifstream::badbit );
     }
     catch(const ifstream::failure& e)
     {
@@ -28,29 +27,11 @@ void FileHandler::readFileIn(string readFile, LinkedList list)
         cout << "There was an error: " << e.what() << endl;
     }
 
-    //read each line int he file
-    while(getline(fileIn, line))
+    while (!fileIn.eof())
     {
-        list.createNode(line);
+            getline(fileIn, line);
+            list.createNode(line);
     }
-//    do
-//    {
-//        try{
-//
-//            getline(fileIn, line);
-//            list.createNode(line);
-//            cin.ignore();
-//            fileIn.exceptions(ifstream::eofbit);
-//        }catch(ifstream::failure e){
-//            std::cerr << "Exception happened: " << e.what() << "\n"
-//                      << "Error bits are: "
-//                      << "\nfailbit: " << fileIn.fail()
-//                      << "\neofbit: " << fileIn.eof()
-//                      << "\nbadbit: " << fileIn.bad() << std::endl;
-//        }
-//
-//    }
-//    while (!fileIn.eof());
 
     fileIn.close();
 }
@@ -104,27 +85,91 @@ void FileHandler::writeFileOut(string writeFile, LinkedList list)
     }
 }
 
-int FileHandler::inputCommand(string command, int selected, LinkedList list)
+int FileHandler::inputCommand(string command,string fileOut, int selected, LinkedList list)
 {
-    regex regex1("\\b[a-z]\\s{1}\\d*\\s{1}\\d*");
-    regex regex2("\\b[a-z]\\s{1}\\d*");
-    regex regex3("\\b[a-z]");
-    if(regex_match(command, regex3))
+    regex regex1("\\b[a-zA-Z]\\s{1}\\d*\\s{1}\\d*");
+    regex regex2("\\b[a-zA-Z]\\s{1}\\d*");
+    regex regex3("\\b[a-zA-Z]");
+    if(regex_match(command, regex3) || regex_match(command, regex2) || regex_match(command, regex1))
     {
-        cout << "match 1" << endl;
-    }
-    else if(regex_match(command, regex2))
-    {
-        cout << "match 2" << endl;
-    }
-    else if (regex_match(command, regex1))
-    {
-        cout << "match 3" << endl;
+
+        string action, arg1 = "", arg2 = "";
+        int spaces = 0;
+
+        //parse string into 3 possible commands
+        for(int i = 0; i < command.length(); i++)
+        {
+            if(command[i] == ' ')
+            {
+                spaces++;
+            }
+            else
+            {
+                if(spaces == 0)
+                {
+                    action = command[i];
+                }
+                if(spaces == 1)
+                {
+                    arg1 += command[i];
+                }
+                if(spaces == 2)
+                {
+                    arg2 += command[i];
+                }
+            }
+        }
+
+        if(tolower(action[0]) == 'q')
+        {
+            cout << "Program closed after saving file";
+            writeFileOut(fileOut, list);
+            return 0;
+        }
+        else if(tolower(action[0]) == 'x')
+        {
+            cout << "Program closed without saving";
+            return 0;
+        }
+        else if(tolower(action[0]) == 'i')
+        {
+            if(arg1 == "")
+            {
+                insertLine(selected, list);
+            }
+            else
+            {
+                insertLine(stoi(arg1), list);
+            }
+        }
+        else if(tolower(action[0]) == 'd')
+        {
+
+        }
+        else if(tolower(action[0]) == 'v')
+        {
+
+        }
+        else if(tolower(action[0]) == 'g')
+        {
+
+        }
+        else if(tolower(action[0]) == 's')
+        {
+
+        }
+        else
+        {
+            cout << "Please enter a proper command" << endl;
+        }
+
     }
     else
     {
         cout << "Please enter a proper command" << endl;
     }
+
+
 
     return selected;
 
@@ -134,7 +179,7 @@ int FileHandler::insertLine(int line, LinkedList list)
 {
     string newLine;
     cout << "Insert in line" << line << ": ";
-    cin >> newLine;
+    getline(cin, newLine);
 
     //if line 1 insert at begining
     if(line == 1)
