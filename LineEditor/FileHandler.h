@@ -16,6 +16,9 @@ private:
 public:
     void readFileIn(string readFile, LinkedList list);
     void writeFileOut(string writeFile, LinkedList list);
+    int inputCommand(string command, int selected, LinkedList list);
+    int insertLine(int line, LinkedList list);
+
 
 
 };

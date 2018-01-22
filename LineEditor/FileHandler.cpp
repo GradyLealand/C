@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <regex>
 
 using namespace std;
 
@@ -28,24 +29,28 @@ void FileHandler::readFileIn(string readFile, LinkedList list)
     }
 
     //read each line int he file
-    do
+    while(getline(fileIn, line))
     {
-        try{
-
-            getline(fileIn, line);
-            list.createNode(line);
-            cin.ignore();
-            fileIn.exceptions(ifstream::eofbit);
-        }catch(ifstream::failure e){
-            std::cerr << "Exception happened: " << e.what() << "\n"
-                      << "Error bits are: "
-                      << "\nfailbit: " << fileIn.fail()
-                      << "\neofbit: " << fileIn.eof()
-                      << "\nbadbit: " << fileIn.bad() << std::endl;
-        }
-
+        list.createNode(line);
     }
-    while (!fileIn.eof());
+//    do
+//    {
+//        try{
+//
+//            getline(fileIn, line);
+//            list.createNode(line);
+//            cin.ignore();
+//            fileIn.exceptions(ifstream::eofbit);
+//        }catch(ifstream::failure e){
+//            std::cerr << "Exception happened: " << e.what() << "\n"
+//                      << "Error bits are: "
+//                      << "\nfailbit: " << fileIn.fail()
+//                      << "\neofbit: " << fileIn.eof()
+//                      << "\nbadbit: " << fileIn.bad() << std::endl;
+//        }
+//
+//    }
+//    while (!fileIn.eof());
 
     fileIn.close();
 }
@@ -96,5 +101,48 @@ void FileHandler::writeFileOut(string writeFile, LinkedList list)
     catch(exception& e)
     {
         cout << "error while closing write file";
+    }
+}
+
+int FileHandler::inputCommand(string command, int selected, LinkedList list)
+{
+    regex regex1("\\b[a-z]\\s{1}\\d*\\s{1}\\d*");
+    regex regex2("\\b[a-z]\\s{1}\\d*");
+    regex regex3("\\b[a-z]");
+    if(regex_match(command, regex3))
+    {
+        cout << "match 1" << endl;
+    }
+    else if(regex_match(command, regex2))
+    {
+        cout << "match 2" << endl;
+    }
+    else if (regex_match(command, regex1))
+    {
+        cout << "match 3" << endl;
+    }
+    else
+    {
+        cout << "Please enter a proper command" << endl;
+    }
+
+    return selected;
+
+}
+
+int FileHandler::insertLine(int line, LinkedList list)
+{
+    string newLine;
+    cout << "Insert in line" << line << ": ";
+    cin >> newLine;
+
+    //if line 1 insert at begining
+    if(line == 1)
+    {
+        list.insertHead(newLine);
+    }
+    else
+    {
+        list.insterMid(line, newLine);
     }
 }

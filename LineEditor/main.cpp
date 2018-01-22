@@ -6,6 +6,8 @@ using namespace std;
 
 int main() {
     FileHandler fileHandler;
+    bool quitEditor = false;
+    int curentLine = 1;
 
     //ask for file name
         //check to see if file exists
@@ -23,8 +25,17 @@ int main() {
     obj.createNode("is");
     obj.createNode("meow");
     obj.createNode("a");
+    //fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/in.txt", obj);
     fileHandler.writeFileOut("/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", obj);
     obj.display();
+
+    while(curentLine != 0)
+    {
+        string comand;
+        cout << "Line " << curentLine << ":";
+        cin >> comand;
+        curentLine = fileHandler.inputCommand(comand, curentLine, obj);
+    }
     //fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/text.txt", obj);
 //    cout<<"\n--------------------------------------------------\n";
 //    cout<<"---------------Displaying All nodes---------------";
