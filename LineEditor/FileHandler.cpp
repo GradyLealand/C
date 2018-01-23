@@ -218,6 +218,20 @@ int FileHandler::inputCommand(string command,string fileOut, int current, int si
         }
         else if(tolower(action[0]) == 's')
         {
+            if(!arg2.empty())
+            {
+                cout << "The command s (substitute) can only take one or no arguments. ex: s or s 3" << endl;
+            }
+            else if(!arg1.empty())
+            {
+                deleteLine(current, size, arg1, arg2, list);
+                insertLine(stoi(arg1), list);
+            }
+            else
+            {
+                deleteLine(current, size, arg1, arg2, list);
+                insertLine(current, list);
+            }
 
         }
         else
@@ -313,6 +327,12 @@ void FileHandler::deleteLine(int current, int size, string line1, string line2, 
     }
 
     *list = temp;
+}
+
+void FileHandler::subsitiLine(int line, LinkedList *list)
+{
 
 }
+
+
 
