@@ -27,6 +27,7 @@ public:
     void deleteHead();
     void deleteTail();
     void deleteMid(int position);
+    int countLines();
 
     node *getHead() const;
 

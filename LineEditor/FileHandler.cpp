@@ -87,7 +87,7 @@ void FileHandler::writeFileOut(string writeFile, LinkedList list)
     }
 }
 
-int FileHandler::inputCommand(string command,string fileOut, int selected, LinkedList *list)
+int FileHandler::inputCommand(string command,string fileOut, int selected, int size, LinkedList *list)
 {
     regex regex1("\\b[a-zA-Z]\\s{1}\\d*\\s{1}\\d*");
     regex regex2("\\b[a-zA-Z]\\s{1}\\d*");
@@ -135,11 +135,11 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, Linke
         }
         else if(tolower(action[0]) == 'i')
         {
-            if(arg2 != "")
+            if(!arg2.empty())
             {
                 cout << "The command i (insert) may only have 1 or no arguments. ex: i 3 or i" << endl;
             }
-            else if(arg1 == "")
+            else if(arg1.empty())
             {
                 insertLine(selected, list);
             }
@@ -154,7 +154,8 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, Linke
         }
         else if(tolower(action[0]) == 'v')
         {
-            if(arg1 != "")
+            //make sure no arguments are entered
+            if(!arg1.empty())
             {
                 cout << "The command v (view) may not take any arguments" << endl;
             }
@@ -166,7 +167,15 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, Linke
         }
         else if(tolower(action[0]) == 'g')
         {
-
+            //make sure that one and only one argument is entered
+            if(arg1.empty() || !arg2.empty())
+            {
+                cout << "The command g (go to line) must take in only one argument. ex: g 2" << endl;
+            }
+            else
+            {
+                selected = stoi(arg1);
+            }
         }
         else if(tolower(action[0]) == 's')
         {

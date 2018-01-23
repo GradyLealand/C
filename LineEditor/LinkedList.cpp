@@ -144,6 +144,25 @@ node *LinkedList::getTail() const {
     return tail;
 }
 
+//returns how made nodes are in the list
+int LinkedList::countLines()
+{
+    //make a pointer to walk through the list
+    node *temp = new node;
+    //set the pointer equal to the head node
+    temp = head;
+
+    //a variable to hold the line count
+    int count = 0;
+    while(temp != nullptr)
+    {
+        temp=temp->next;
+        count++;
+    }
+
+    return count;
+}
+
 
 
 

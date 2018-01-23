@@ -7,7 +7,8 @@ using namespace std;
 int main() {
     FileHandler fileHandler;
     bool quitEditor = false;
-    int curentLine = 1;
+    int curentLine = 1, listSize;
+
 
     //ask for file name
         //check to see if file exists
@@ -23,13 +24,15 @@ int main() {
     LinkedList obj;
     obj = fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/in.txt", obj);
     obj.display();
+    listSize = obj.countLines();
 
     while(curentLine != 0)
     {
         string command;
         cout << "\nLine" << curentLine << ">>";
         getline(cin, command);
-        curentLine = fileHandler.inputCommand(command, "/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", curentLine, &obj);
+        curentLine = fileHandler.inputCommand(command, "/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", curentLine, listSize, &obj);
+        listSize = obj.countLines();
     }
     //fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/text.txt", obj);
 //    cout<<"\n--------------------------------------------------\n";
