@@ -122,13 +122,13 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, int s
             }
         }
 
-        if(tolower(action[0]) == 'q')
+        if(tolower(action[0]) == 'e')
         {
             cout << "Program closed after saving file";
             writeFileOut(fileOut, *list);
             return 0;
         }
-        else if(tolower(action[0]) == 'x')
+        else if(tolower(action[0]) == 'q')
         {
             cout << "Program closed without saving";
             return 0;

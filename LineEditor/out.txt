@@ -1,36 +1,3 @@
-
-meow
-is
-meow
-a
-This is some text
-it is in a file
-i hope it can be read
-meow
-is
-meow
-a
-This is some text
-it is in a file
-i hope it can be read
-meow
-is
-meow
-a
-This is some text
-it is in a file
-i hope it can be read
-meow
-is
-meow
-a
-This is some text
-it is in a file
-i hope it can be read
-meow
-is
-meow
-a
 This is some text
 it is in a file
 i hope it can be read
