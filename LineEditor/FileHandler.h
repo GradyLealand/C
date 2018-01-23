@@ -17,9 +17,8 @@ public:
     LinkedList readFileIn(string readFile, LinkedList list);
     void writeFileOut(string writeFile, LinkedList list);
     int inputCommand(string command, string fileOut, int selected, int size, LinkedList *list);
-    int insertLine(int line, LinkedList *list);
-    int exitProgram();
-    int saveAndExitProgram();
+    void insertLine(int current, LinkedList *list);
+    void deleteLine(int current, int size, string line1, string line2, LinkedList *list);
 
 
 

@@ -87,7 +87,7 @@ void FileHandler::writeFileOut(string writeFile, LinkedList list)
     }
 }
 
-int FileHandler::inputCommand(string command,string fileOut, int selected, int size, LinkedList *list)
+int FileHandler::inputCommand(string command,string fileOut, int current, int size, LinkedList *list)
 {
     regex regex1("\\b[a-zA-Z]\\s{1}\\d*\\s{1}\\d*");
     regex regex2("\\b[a-zA-Z]\\s{1}\\d*");
@@ -141,7 +141,7 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, int s
             }
             else if(arg1.empty())
             {
-                insertLine(selected, list);
+                insertLine(current, list);
             }
             else
             {
@@ -150,6 +150,37 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, int s
         }
         else if(tolower(action[0]) == 'd')
         {
+            bool passed = true;
+            //check to make sure the lines to delete exist
+            if(!arg2.empty())
+            {
+                if(stoi(arg2) > size)
+                {
+                    cout << "Can not delete lines that do not exist" << endl;
+                    passed = false;
+                }
+                if(!arg1.empty())
+                {
+                    if(stoi(arg1) >= stoi(arg2))
+                    {
+                        cout << "First argument must be smaller then second" << endl;
+                        passed = false;
+                    }
+                }
+            }
+            if(!arg1.empty())
+            {
+                if(stoi(arg1) > size)
+                {
+                    cout << "Can not delete lines that do not exist" << endl;
+                    passed = false;
+                }
+            }
+
+            if(passed)
+            {
+                deleteLine(current, size, arg1, arg2, list);
+            }
 
         }
         else if(tolower(action[0]) == 'v')
@@ -174,7 +205,15 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, int s
             }
             else
             {
-                selected = stoi(arg1);
+                // if arg one is greater then the num of lines set the first line as selected
+                if(stoi(arg1) > size)
+                {
+                    current = 1;
+                }
+                else
+                {
+                    current = stoi(arg1);
+                }
             }
         }
         else if(tolower(action[0]) == 's')
@@ -194,28 +233,65 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, int s
 
 
 
-    return selected;
+    return current;
 
 }
 
-int FileHandler::insertLine(int line, LinkedList *list)
+//inset a node in the linked list at the specified posision
+void FileHandler::insertLine(int current, LinkedList *list)
 {
     LinkedList temp = *list;
     string newLine;
-    cout << "Insert in line" << line << ": ";
+    cout << "Insert in line" << current << ": ";
     getline(cin, newLine);
 
     //if line 1 insert at beginning
-    if(line == 1)
+    if(current == 1)
     {
         temp.insertHead(newLine);
         *list = temp;
     }
     else
     {
-        temp.insterMid(line, newLine);
+        temp.insterMid(current, newLine);
         *list = temp;
     }
+}
 
+//delete the node(s) at a specified position
+void FileHandler::deleteLine(int current, int size, string line1, string line2, LinkedList *list)
+{
+    LinkedList temp = *list;
+
+    //if line2 is empty then we will delete a specific node
+    if(line2.empty())
+    {
+        int toDelete;
+        if(line1.empty())
+        {
+            toDelete = current;
+        } else
+        {
+            toDelete = stoi(line1);
+        }
+
+        //check to see if the index is
+        if(toDelete == 1)
+        {
+            temp.deleteHead();
+        }
+        else if(toDelete == size)
+        {
+            temp.deleteTail();
+        }
+        else
+        {
+            temp.deleteMid(toDelete);
+        }
+
+    }
+
+    *list = temp;
 
 }
+
