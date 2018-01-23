@@ -290,6 +290,27 @@ void FileHandler::deleteLine(int current, int size, string line1, string line2, 
         }
 
     }
+    else
+    {
+        int n = stoi(line1);
+        int m = stoi(line2);
+        if(m == size)
+        {
+            for(int i = m; i >= n; i--)
+            {
+                temp.deleteTail();
+            }
+        }
+        else
+        {
+            for(int i = m; i >= n; i--)
+            {
+                temp.deleteMid(i);
+            }
+        }
+
+
+    }
 
     *list = temp;
 
