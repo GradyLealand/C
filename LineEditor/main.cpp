@@ -21,20 +21,15 @@ int main() {
 
     // test 1: adding new nodes
     LinkedList obj;
-    obj.createNode("meow");
-    obj.createNode("is");
-    obj.createNode("meow");
-    obj.createNode("a");
-    fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/in.txt", obj);
+    obj = fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/in.txt", obj);
     obj.display();
 
     while(curentLine != 0)
     {
         string command;
-        cout << "Line " << curentLine << ":";
+        cout << "\nLine" << curentLine << ">>";
         getline(cin, command);
-        curentLine = fileHandler.inputCommand(command, "/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", curentLine, obj);
-        obj.display();
+        curentLine = fileHandler.inputCommand(command, "/home/prog2100/CLionProjects/GitHub/LineEditor/out.txt", curentLine, &obj);
     }
     //fileHandler.readFileIn("/home/prog2100/CLionProjects/GitHub/LineEditor/text.txt", obj);
 //    cout<<"\n--------------------------------------------------\n";

@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void FileHandler::readFileIn(string readFile, LinkedList list)
+LinkedList FileHandler::readFileIn(string readFile, LinkedList list)
 {
     string line;
     ifstream fileIn;
@@ -34,6 +34,8 @@ void FileHandler::readFileIn(string readFile, LinkedList list)
     }
 
     fileIn.close();
+
+    return list;
 }
 
 void FileHandler::writeFileOut(string writeFile, LinkedList list)
@@ -85,7 +87,7 @@ void FileHandler::writeFileOut(string writeFile, LinkedList list)
     }
 }
 
-int FileHandler::inputCommand(string command,string fileOut, int selected, LinkedList list)
+int FileHandler::inputCommand(string command,string fileOut, int selected, LinkedList *list)
 {
     regex regex1("\\b[a-zA-Z]\\s{1}\\d*\\s{1}\\d*");
     regex regex2("\\b[a-zA-Z]\\s{1}\\d*");
@@ -123,7 +125,7 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, Linke
         if(tolower(action[0]) == 'q')
         {
             cout << "Program closed after saving file";
-            writeFileOut(fileOut, list);
+            writeFileOut(fileOut, *list);
             return 0;
         }
         else if(tolower(action[0]) == 'x')
@@ -133,7 +135,11 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, Linke
         }
         else if(tolower(action[0]) == 'i')
         {
-            if(arg1 == "")
+            if(arg2 != "")
+            {
+                cout << "The command i (insert) may only have 1 or no arguments. ex: i 3 or i" << endl;
+            }
+            else if(arg1 == "")
             {
                 insertLine(selected, list);
             }
@@ -148,7 +154,15 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, Linke
         }
         else if(tolower(action[0]) == 'v')
         {
-
+            if(arg1 != "")
+            {
+                cout << "The command v (view) may not take any arguments" << endl;
+            }
+            else
+            {
+                LinkedList temp = *list;
+                temp.display();
+            }
         }
         else if(tolower(action[0]) == 'g')
         {
@@ -175,19 +189,24 @@ int FileHandler::inputCommand(string command,string fileOut, int selected, Linke
 
 }
 
-int FileHandler::insertLine(int line, LinkedList list)
+int FileHandler::insertLine(int line, LinkedList *list)
 {
+    LinkedList temp = *list;
     string newLine;
     cout << "Insert in line" << line << ": ";
     getline(cin, newLine);
 
-    //if line 1 insert at begining
+    //if line 1 insert at beginning
     if(line == 1)
     {
-        list.insertHead(newLine);
+        temp.insertHead(newLine);
+        *list = temp;
     }
     else
     {
-        list.insterMid(line, newLine);
+        temp.insterMid(line, newLine);
+        *list = temp;
     }
+
+
 }
