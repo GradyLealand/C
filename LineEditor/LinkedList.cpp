@@ -55,10 +55,30 @@ void LinkedList::display()
     while(temp != nullptr)
     {
         //ass long as the pointer is not null print the node it is on
-        cout<< count << ". " << temp->data << endl;
+        cout << "\n" << count << ". " << temp->data << endl;
         //then move the pointer to the next node
         temp=temp->next;
         count++;
+    }
+}
+
+//display all nodes in the list
+void LinkedList::displaySelected(int start, int finish) {
+    //make a pointer to walk through the list
+    node *temp = new node;
+    //set the pointer equal to the head node
+    temp = head;
+
+    for(int i = 1; i <= finish; i++) {
+        //only print the lines once they reach the selected area
+        if(i >= start)
+        {
+            //ass long as the pointer is not null print the node it is on
+            cout  << i << ". " << temp->data << endl;
+        }
+        //move the pointer to the next node
+        temp = temp->next;
+
     }
 }
 

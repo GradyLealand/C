@@ -22,6 +22,7 @@ public:
 
     void createNode(string line);
     void display();
+    void displaySelected(int start, int finish);
     void insertHead(string line);
     void insterMid(int position, string line);
     void deleteHead();

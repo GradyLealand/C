@@ -19,7 +19,6 @@ public:
     int inputCommand(string command, string fileOut, int selected, int size, LinkedList *list);
     void insertLine(int current, LinkedList *list);
     void deleteLine(int current, int size, string line1, string line2, LinkedList *list);
-    void subsitiLine(int line, LinkedList *list);
 
 
 

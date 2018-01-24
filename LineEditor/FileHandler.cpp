@@ -224,7 +224,9 @@ int FileHandler::inputCommand(string command,string fileOut, int current, int si
             }
             else if(!arg1.empty())
             {
+                //delete selected line
                 deleteLine(current, size, arg1, arg2, list);
+                //insert where deleted line was
                 insertLine(stoi(arg1), list);
             }
             else
@@ -233,6 +235,37 @@ int FileHandler::inputCommand(string command,string fileOut, int current, int si
                 insertLine(current, list);
             }
 
+        }
+        else if(tolower(action[0]) == 'l')
+        {
+            bool passed = true;
+            //check to make sure the lines to delete exist
+            if(arg2.empty())
+            {
+                cout << "The command l (list) must have two arguments with the second larger then the first. ex: l 3 5" << endl;
+            }
+            if(!arg2.empty())
+            {
+                if(stoi(arg2) > size)
+                {
+                    cout << "Line " << arg2 << "dose not exist" << endl;
+                    passed = false;
+                }
+                if(!arg1.empty())
+                {
+                    if(stoi(arg1) >= stoi(arg2))
+                    {
+                        cout << "The command l (list) must have two arguments with the second larger then the first. ex: l 3 5" << endl;
+                        passed = false;
+                    }
+                }
+            }
+
+            if(passed)
+            {
+                LinkedList temp = *list;
+                temp.displaySelected(stoi(arg1), stoi(arg2));
+            }
         }
         else
         {
@@ -244,11 +277,7 @@ int FileHandler::inputCommand(string command,string fileOut, int current, int si
     {
         cout << "Please enter a proper command" << endl;
     }
-
-
-
     return current;
-
 }
 
 //inset a node in the linked list at the specified posision
@@ -329,10 +358,7 @@ void FileHandler::deleteLine(int current, int size, string line1, string line2, 
     *list = temp;
 }
 
-void FileHandler::subsitiLine(int line, LinkedList *list)
-{
 
-}
 
 
 
