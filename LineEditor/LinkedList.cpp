@@ -55,7 +55,7 @@ void LinkedList::display()
     while(temp != nullptr)
     {
         //ass long as the pointer is not null print the node it is on
-        cout << "\n" << count << ". " << temp->data << endl;
+        cout << count << ". " << temp->data << endl;
         //then move the pointer to the next node
         temp=temp->next;
         count++;

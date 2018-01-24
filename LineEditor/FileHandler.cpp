@@ -193,6 +193,7 @@ int FileHandler::inputCommand(string command,string fileOut, int current, int si
             else
             {
                 LinkedList temp = *list;
+                cout << endl;
                 temp.display();
             }
         }
