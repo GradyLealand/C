@@ -82,6 +82,14 @@ void Maze::loadMaze(int choice)
         mazeArray[i] = new char[cols];
     }
 
+    maze = new bool*[rows];
+    for (int i = 0; i < rows; i++)
+    {
+        maze[i] = new bool[cols];
+    }
+
+
+
     fillArray(fileName);
 
 }//end load maze

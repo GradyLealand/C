@@ -11,6 +11,8 @@ using namespace std;
 
 
 class Maze {
+private:
+    bool** maze;
 
 public:
     char** mazeArray;
