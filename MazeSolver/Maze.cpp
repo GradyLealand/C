@@ -84,6 +84,11 @@ void Maze::loadMaze(int choice)
     //set maze finish
     finish = Location(rows - 1, cols - 2);
 
+    if (choice == 5)
+    {
+        finish = Location(rows - 1, cols - 1);
+    }
+
     // fill the char[][]
     fillArray(fileName);
 
@@ -93,7 +98,18 @@ void Maze::fillArray(string fileName)
 {
     //fill array
     ifstream fileIn;
-    fileIn.open(fileName);
+    try
+    {
+        fileIn.open(fileName);
+    }
+    catch(const ifstream::failure& e)
+    {
+        cout << "Error reading the file" << endl;
+    }
+    catch(std::exception const& e)
+    {
+        cout << "There was an error: " << e.what() << endl;
+    }
     string addLine;
     while(!fileIn.eof())
     {
@@ -138,8 +154,11 @@ void Maze::solve()
     while(top.row != finish.row && top.col != finish.col)
     {
         move(&stack, &top);
-        top = stack.get_top()->get_current();
+        top = stack.peek();
     }
+
+    //place the final #
+    mazeArray[top.row][top.col] = '#';
 
 
 }//end solve

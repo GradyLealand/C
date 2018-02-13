@@ -22,6 +22,7 @@ class StackNode {
 private:
     Location _current;
     StackNode *_next;
+
 public:
     StackNode(Location current, StackNode* next);
     virtual ~StackNode();
