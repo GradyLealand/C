@@ -33,8 +33,8 @@ public:
 
     //solve maze
     void solve();
-    void canMove(Location loca, Directions direc);
-    void Move(Directions direc, Stack *stack, Location *loca);
+    bool canMove(Location location, Directions direction);
+    void move(Stack *stack, Location *location);
 
     //display maze
     void cleanUp();

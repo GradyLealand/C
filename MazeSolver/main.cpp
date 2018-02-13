@@ -11,9 +11,10 @@ int main() {
     int choice;
     cin >> choice;
     maze.loadMaze(choice);
-    cout << endl;
-    cout << maze.mazeArray[2][2] << endl;
-    cout << endl;
+
+    maze.solve();
+
+    maze.cleanUp();
 
     maze.drawMaze();
 
