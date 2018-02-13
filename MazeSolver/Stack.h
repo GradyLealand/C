@@ -6,8 +6,27 @@
 #define MAZESOLVER_STACK_H
 
 
-class Stack {
+#include "StackNode.h"
 
+
+class Stack {
+private:
+    StackNode *_top;
+
+public:
+    //default constructor and deconstructor
+    Stack();
+    virtual ~Stack();
+
+    void push(Location current);
+    Location peek();
+    void pop();
+    bool empty();
+
+    //getters and setters
+    StackNode *get_top() const;
+
+    void set_top(StackNode *_top);
 };
 
 

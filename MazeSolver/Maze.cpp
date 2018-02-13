@@ -24,7 +24,7 @@ void Maze::loadMaze(int choice)
 {
     string fileName;
 
-
+    //get the selected maze files name
     switch (choice)
     {
         case 1:
@@ -70,7 +70,12 @@ void Maze::loadMaze(int choice)
         getline(fileIn, line);
 
         rows++;
-        cols = (int)line.size();
+        //only set the column size once
+        if(cols == 0)
+        {
+            cols = (int)line.size();
+        }
+
     }
 
     fileIn.close();
@@ -82,14 +87,7 @@ void Maze::loadMaze(int choice)
         mazeArray[i] = new char[cols];
     }
 
-    maze = new bool*[rows];
-    for (int i = 0; i < rows; i++)
-    {
-        maze[i] = new bool[cols];
-    }
-
-
-
+    // fill the char[][]
     fillArray(fileName);
 
 }//end load maze
@@ -98,14 +96,14 @@ void Maze::loadMaze(int choice)
 void Maze::fillArray(string fileName)
 {
     //fill array
-    ifstream arrayFile;
-    arrayFile.open(fileName);
+    ifstream fileIn;
+    fileIn.open(fileName);
     string addLine;
-    while(!arrayFile.eof())
+    while(!fileIn.eof())
     {
         for (int i = 0; i < rows; i++)
         {
-            getline(arrayFile, addLine);
+            getline(fileIn, addLine);
             for (int j = 0; j < cols; j++)
             {
                 mazeArray[i][j] = addLine[j];
@@ -113,7 +111,10 @@ void Maze::fillArray(string fileName)
             }
         }
     }
-}
+
+    fileIn.close();
+}//end fillArray
+
 void Maze::drawMaze()
 {
     for(int i = 0; i < rows; i++)
@@ -124,7 +125,7 @@ void Maze::drawMaze()
         }
         cout << endl;
     }
-}
+}//end drawMaze
 
 
 
