@@ -76,13 +76,13 @@ void Maze::loadMaze(int choice)
 
     //build array
     mazeArray = new char*[rows];
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < rows ; i++)
     {
         mazeArray[i] = new char[cols];
     }
 
     //set maze finish
-    finish = Location(rows - 2, cols - 1);
+    finish = Location(rows - 1, cols - 2);
 
     // fill the char[][]
     fillArray(fileName);
@@ -107,6 +107,8 @@ void Maze::fillArray(string fileName)
             }
         }
     }
+
+    drawMaze();
 
     fileIn.close();
 }//end fillArray

@@ -14,6 +14,8 @@ int main() {
 
     maze.solve();
 
+    maze.drawMaze();
+
     maze.cleanUp();
 
     maze.drawMaze();
