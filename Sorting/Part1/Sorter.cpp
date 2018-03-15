@@ -96,7 +96,6 @@ void Sorter::printSorted(int *a)
     cout << endl;
 }
 
-
 int Sorter::partition(int *array, int beg, int end)
 //Function to Find Pivot Point
 {
@@ -124,15 +123,38 @@ void Sorter::quickSort(int *a, int beg, int end, int size)
         quickSort(a, beg, pivot - 1, size);         // Subsort left (Recursion)
         quickSort(a, pivot + 1, end, size);	      // Subsort right (Recursion)
     }
-    printSorted(a);
+    else
+    {
+        cout << "Quick:";
+        printSorted(a);
+    }
+
 }
 
+//initial quick sort
 void Sorter::quickSort(int *a, int size)
 {
     quickSort(a, 0, size - 1, size);
 }
 
-void Sorter::mergeSort(int *a, int first, int mid, int last, int *temp)
+void Sorter::mergeSort(int *a, int first, int last, int *temp)
+{
+    if(last - first > 1)
+    {
+        int middle = (first + last) / 2;
+        mergeSort(a, first, middle, temp);
+        mergeSort(a, middle, last, temp);
+        merge(a, first, middle, last, temp);
+    }
+    else
+    {
+        cout << "Merge:";
+        printSorted(temp);
+    }
+}
+
+//merge split temp arrays from merge sort
+void Sorter::merge(int *a, int first, int mid, int last, int *temp)
 {
     int i = first, j = mid, k;
     for(k = 0; i < mid && j < last; ++k)
@@ -159,6 +181,7 @@ void Sorter::mergeSort(int *a, int first, int mid, int last, int *temp)
         a[first + index] = temp[index];
     }
 }
+
 
 
 int Sorter::getSize() const {

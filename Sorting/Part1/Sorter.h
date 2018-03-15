@@ -16,12 +16,12 @@ public:
     void selectionSort(int *a);
     void insertionSort(int *a);
     void shellSort(int *a);
-    void mergeSort(int *a, int first, int mid, int last, int *temp);
+    void mergeSort(int *a, int first, int last, int *temp);
+    void merge(int *a, int first, int mid, int last, int *temp);
     void quickSort(int a[], int beg, int end, int size);
     void quickSort(int a[], int size);
     int partition(int a[], int beg, int end);
     void printSorted(int a[]);
-
     int getSize() const;
     void setSize(int size);
 };
