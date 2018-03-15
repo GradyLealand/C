@@ -9,7 +9,9 @@ using namespace std;
 
 Sorter::Sorter(){}
 
-void Sorter::bubbleSort(int *a) {
+//Bubble sort
+void Sorter::bubbleSort(int *a)
+{
     int outer, inner;
     for (outer = testSize - 1; outer > 0; outer--)
     {  // counting down
@@ -25,10 +27,11 @@ void Sorter::bubbleSort(int *a) {
             }
         }
     }
-    printSorted(a);
 }
 
-void Sorter::selectionSort(int *a) {
+//Select sort
+void Sorter::selectionSort(int *a)
+{
     int outer, inner, min;
     for (outer = 0; outer < testSize - 1; outer++) { // outer counts down
         min = outer;
@@ -43,9 +46,9 @@ void Sorter::selectionSort(int *a) {
         a[outer] = a[min];
         a[min] = temp;
     }
-    printSorted(a);
 }
 
+//Insert Sort
 void Sorter::insertionSort(int *a)
 {
     int i, j ,tmp;
@@ -60,9 +63,9 @@ void Sorter::insertionSort(int *a)
             j--;
         } //end of while loop
     } //end of for loop
-    printSorted(a);
 }
 
+//Shell sort
 void Sorter::shellSort(int *a)
 {
     int i, j, increment;
@@ -85,7 +88,6 @@ void Sorter::shellSort(int *a)
             a[j] = temp;
         }
     }
-    printSorted(a);
 }
 
 void Sorter::printSorted(int *a)
@@ -120,13 +122,8 @@ void Sorter::quickSort(int *a, int beg, int end, int size)
     if (beg<end)
     {
         int pivot = partition(a, beg, end);   //Calling Procedure to Find Pivot
-        quickSort(a, beg, pivot - 1, size);         // Subsort left (Recursion)
-        quickSort(a, pivot + 1, end, size);	      // Subsort right (Recursion)
-    }
-    else
-    {
-        cout << "Quick:";
-        printSorted(a);
+        quickSort(a, beg, pivot - 1, size);   // Subsort left (Recursion)
+        quickSort(a, pivot + 1, end, size);	  // Subsort right (Recursion)
     }
 
 }
@@ -146,18 +143,13 @@ void Sorter::mergeSort(int *a, int first, int last, int *temp)
         mergeSort(a, middle, last, temp);
         merge(a, first, middle, last, temp);
     }
-    else
-    {
-        cout << "Merge:";
-        printSorted(temp);
-    }
 }
 
 //merge split temp arrays from merge sort
 void Sorter::merge(int *a, int first, int mid, int last, int *temp)
 {
     int i = first, j = mid, k;
-    for(k = 0; i < mid && j < last; ++k)
+    for(k = 0; i < mid && j < last; k++)
     {
         if(a[i] <= a[j])
         {
@@ -168,21 +160,19 @@ void Sorter::merge(int *a, int first, int mid, int last, int *temp)
             temp[k] = a[j++];
         }
     }
-    for(; i < mid; ++k)
+    for(; i < mid; k++)
     {
         temp[k] = a[i++];
     }
-    for(; j < last; ++k)
+    for(; j < last; k++)
     {
         temp[k] = a[j++];
     }
-    for(int index = 0; index < last - first; ++index)
+    for(int index = 0; index < last - first; index++)
     {
         a[first + index] = temp[index];
     }
 }
-
-
 
 int Sorter::getSize() const {
     return testSize;
