@@ -8,16 +8,19 @@
 
 class Sorter {
 private:
-    int size;
+    int testSize;
 
 public:
-    void Sorter(int size);
+    Sorter();
     void bubbleSort(int a[]);
-    void selection(int a[]);
-    void insertion(int a[]);
-    void Shell(int a[]);
-    void Merger(int a[]);
-    void QuickSort(int a[]);
+    void selectionSort(int *a);
+    void insertionSort(int *a);
+    void shellSort(int *a);
+    void mergeSort(int *a, int first, int mid, int last, int *temp);
+    void quickSort(int a[], int beg, int end, int size);
+    void quickSort(int a[], int size);
+    int partition(int a[], int beg, int end);
+    void printSorted(int a[]);
 
     int getSize() const;
     void setSize(int size);
