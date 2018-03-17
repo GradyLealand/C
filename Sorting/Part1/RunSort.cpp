@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "RunSort.h"
 
 using namespace std;
@@ -26,12 +27,7 @@ void RunSort::sortAll(int size)
 
     if(size == 1000)
     {
-        cout << "---------------------initial array---------------------" << endl;
-        //print unsorted array
-        for (int i = 0; i < size; i ++) {
-            cout << array[i] << " ";
-        }
-        cout << endl;
+        writeFile("/home/prog2100/CLionProjects/GitHub/Sorting/Part1/test.txt", "un-sorted", array, size);
     }
 
 
@@ -49,10 +45,7 @@ void RunSort::sortAll(int size)
     if(size == 1000)
     {
         sorter.printSorted(sortMe);
-    }
-    if(size == 1000)
-    {
-
+        writeFile("/home/prog2100/CLionProjects/GitHub/Sorting/Part1/test.txt", "Bubble", sortMe, size);
     }
     util.copyArray(array, sortMe, size);
 
@@ -64,6 +57,7 @@ void RunSort::sortAll(int size)
     if(size == 1000)
     {
         sorter.printSorted(sortMe);
+        writeFile("/home/prog2100/CLionProjects/GitHub/Sorting/Part1/test.txt", "Selection", sortMe, size);
     }
     util.copyArray(array, sortMe, size);
 
@@ -75,6 +69,7 @@ void RunSort::sortAll(int size)
     if(size == 1000)
     {
         sorter.printSorted(sortMe);
+        writeFile("/home/prog2100/CLionProjects/GitHub/Sorting/Part1/test.txt", "Insertion", sortMe, size);
     }
     util.copyArray(array, sortMe, size);
 
@@ -86,6 +81,7 @@ void RunSort::sortAll(int size)
     if(size == 1000)
     {
         sorter.printSorted(sortMe);
+        writeFile("/home/prog2100/CLionProjects/GitHub/Sorting/Part1/test.txt", "Shell", sortMe, size);
     }
     util.copyArray(array, sortMe, size);
 
@@ -100,6 +96,7 @@ void RunSort::sortAll(int size)
     if(size == 1000)
     {
         sorter.printSorted(sortMe);
+        writeFile("/home/prog2100/CLionProjects/GitHub/Sorting/Part1/test.txt", "Quick", sortMe, size);
     }
     util.copyArray(array, sortMe, size);
 
@@ -111,6 +108,51 @@ void RunSort::sortAll(int size)
     if(size == 1000)
     {
         sorter.printSorted(sortMe);
+        writeFile("/home/prog2100/CLionProjects/GitHub/Sorting/Part1/test.txt", "Merge", sortMe, size);
     }
 
+}
+
+void RunSort::writeFile(string writeFile, string type, int *a, int size)
+{
+    ofstream fileOut;
+
+    //to append to a file - use ios::app
+    try
+    {
+        fileOut.open(writeFile,ios::app);
+        fileOut.exceptions ( ifstream::eofbit | ifstream::failbit | ifstream::badbit );
+    }
+    catch(const ofstream::failure& e)
+    {
+        cout << "Error opening write file";
+    }
+    catch(std::exception const& e)
+    {
+        cout << "There was an error: " << e.what() << endl;
+    }
+
+
+    if (fileOut.is_open())//or if(myFileOut.fail)
+    {
+        fileOut << type << ": ";
+
+        for (int i = 0; i < size; i ++) {
+            fileOut << a[i] << " ";
+        }
+        fileOut << endl;
+    }
+    else if(fileOut.fail())
+    {
+        cout << "Output file failed to open" << endl;
+        cin.ignore();
+    }
+
+    try{
+        fileOut.close();
+    }
+    catch(exception& e)
+    {
+        cout << "error while closing write file";
+    }
 }

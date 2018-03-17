@@ -8,6 +8,9 @@
 
 #include "Sorter.h"
 #include "Util.h"
+#include <string>
+
+using namespace std;
 
 class RunSort {
 private:
@@ -15,6 +18,7 @@ private:
     Util util;
 public:
     void sortAll(int size);
+    void writeFile(string writeFile, string type, int a[], int size);
 };
 
 
