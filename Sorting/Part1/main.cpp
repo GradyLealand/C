@@ -8,12 +8,27 @@ using namespace std;
 
 int main() {
     RunSort run;
+    bool progRun = true;
+    int arraySize;
 
-    run.sortAll(1000);
-    run.sortAll(25000);
-    run.sortAll(50000);
-    run.sortAll(75000);
-    run.sortAll(100000);
+    cout << "What size array would you like to sort? (0 to quit): " ;
+    cin >> arraySize;
+    cout << endl;
+
+    while(progRun)
+    {
+        run.sortAll(arraySize);
+
+        cout << endl;
+        cout << "What size array would you like to sort? (0 to quit): " ;
+        cin >> arraySize;
+        cout << endl;
+
+        if(arraySize == 0)
+        {
+            progRun = false;
+        }
+    }
 
     return 0;
 }
