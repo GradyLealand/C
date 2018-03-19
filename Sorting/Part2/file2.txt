@@ -1,0 +1,6 @@
+Halifax		Jones	Abigail	902-555-4321
+Sackville	Wolf	Ellis	902-555-7654
+Halifax		Smith	Fred	902-555-6767
+Halifax		Green	Dave	902-555-6464
+Sackville	Baker	Abigail	902-555-0000
+

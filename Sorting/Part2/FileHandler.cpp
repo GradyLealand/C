@@ -35,7 +35,7 @@ void FileHandler::splitFile(string fileOne, string fileTwo, string dataFile)
 
 
     try{
-         _if1->open(dataFile);
+         _if1->open(basePath + dataFile);
     }
     catch(const ifstream::failure& e)
     {
@@ -78,7 +78,7 @@ void FileHandler::splitFile(string fileOne, string fileTwo, string dataFile)
             else
             {
                 getline(*_if1, line);
-                *_of1 << line << endl;
+                *_of2 << line << endl;
                 saveFO1 = true;
             }
         }

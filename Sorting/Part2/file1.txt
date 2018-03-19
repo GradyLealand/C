@@ -1,0 +1,6 @@
+Dartmouth	Smith	Dave	902-555-1234
+Dartmouth	Green	Rebecca 902-555-9876
+Halifax		Baker	Mel		902-555-3456
+Sackville	Jones	Mel		902-555-7676
+Dartmouth	Wolf	Renee	902-555-3232
+
