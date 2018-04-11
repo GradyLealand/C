@@ -27,7 +27,7 @@ int Hash::doHash(string key)
         hash += (int)key[i];
     }
 
-    index = hash % SIZE;
+    index = (hash % SEED) % SIZE;
 
     return index;
 
@@ -43,6 +43,8 @@ void Hash::addEntry(string word)
     }
     else
     {
+        collisions++;
+
         entry* temp = HashTable[index];
         while(temp->next != nullptr)
         {
@@ -79,6 +81,8 @@ void Hash::printTable()
 
         cout << endl;
     }
+
+    cout << "Collisions: " << collisions << endl;
 }
 
 void Hash::spellCheck(string word, Hash hash)

@@ -12,6 +12,7 @@ using namespace std;
 class Hash {
 private:
     static const int SIZE = 53;
+    static const int SEED = 101;
 
     struct entry{
         string word;
@@ -19,6 +20,8 @@ private:
     };
 
     entry* HashTable[SIZE];
+
+    int collisions = 0;
 
 public:
     Hash();
